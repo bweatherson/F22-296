@@ -1,0 +1,389 @@
+---
+title: 'PHIL 296: Honors Logic'
+author: "Brian Weatherson"
+date: "Fall 2022"
+format:
+  pdf:
+    documentclass: article
+    md-extensions: +compact_definition_lists
+    keep-tex: true
+    block-headings: false
+    pdf-engine: xelatex
+    include-in-header: 
+      - packages.tex
+  html:
+    minimal: true
+geometry: margin=1.5in
+mainfont: SF Pro Thin
+mainfontoptions: 
+ - BoldFont = SF Pro Rounded Semibold
+ - Scale = MatchLowercase
+mathfont: Fira Math
+editor: source
+---
+
+```{r setup, include=FALSE, cache=F, message=F, warning=F, results="hide"}
+knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(fig.path='figs/')
+knitr::opts_chunk$set(cache.path='_cache/')
+knitr::opts_chunk$set(warning=F, message=F)
+# knitr::opts_knit$get(kable.force.latex = TRUE)
+require(tidyverse)
+require(fontawesome)
+```
+
+```{r dates_bib, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE, dev='pdf')
+mon <- as.Date("2022-08-29") # Monday of the First Week
+tue <- mon + 1
+wed <- tue + 1
+thu <- wed + 1
+fri <- thu + 1
+# fri <- as.Date("2016-01-08")
+
+advdate <- function(obj, adv) {
+ theday <- obj + 7*(adv-1)
+ ttheday <- format(theday, format="%A, %B %d")
+ return(ttheday)
+}
+
+#library(RefManageR)
+## library(knitcitations)
+## library(rcrossref)
+#bib <- ReadBib("411bib.bib")
+#myopts <- BibOptions(bib.style = "authoryear", style="latex", first.inits=FALSE, max.names = 20)
+
+```
+
+| **Lead Instructor**: Brian Weatherson
+| `r fa("far fa-envelope")` weath\@umich.edu
+| `r fa("fas fa-wifi")` canvas.umich.edu
+| 
+| **Office Hours**: TBA (via Zoom)
+| 
+
+# Course Description
+
+This course is a fairly fast-paced introduction to many different logics. We will start with a very quick discussion of **classical logic**, the logic that is used in most other courses (both in philosophy and elsewhere). We'll then move on to **modal logic**, the logic of possibility and necessity. And finally, we'll look at rivals to classical logic, the imaginatively named **non-classical logics**. The aim of the course is to both give you a working familiarity with the technical aspects of these logics, but also some background about why one might care about rivals to classical logic, and when one might think these rivals are suitable to use.
+
+# Canvas
+
+There is a Canvas site for this course, which can be accessed from <https://canvas.umich.edu>. Course documents (syllabus, lecture notes, assignments) will be available from this site. Please make sure that you can access this site. Consult the site regularly for announcements, including changes to the course schedule. And there are many tools on the site to communicate with each other, and with me.
+
+\newpage
+
+# Required Materials
+
+The bulk of the course will be spent working through selections from
+
+-   *An Introduction to Non-Classical Logic: From If to Is*, by Graham Priest Cambridge University Press, 2008. Second Edition.
+
+It is not important that you have the physical version of the book; the electronic version is fine. But it is important that you have the second edition; the first edition only has half the material.
+
+# Course Requirements
+
+1.  Participate in class. We will spend a bit of time in class going over problems, and it is important to practice these.
+2.  Do weekly online quizzes. These will be available through Canvas.
+3.  Do a final exam. This will also be through Canvas.
+
+# Grade Breakdown
+
+-   Class participation: 10%;
+-   Twelve Quizzes, of which the best 10 will count: 7% each, for a total of 70%;
+-   Final Exam: 20%.
+
+\newpage
+
+The course is in three parts: Classical Logic, which is weeks 1-3; Modal Logic, which is weeks 4-?, and Non-Classical Logic, which is weeks ?-?. The readings other than the Priest book are mostly linked here. Some of the links require UM authorisation; it's easiest to simply be on campus when you access them.
+
+# Part One: Classical Logic
+
+## `r advdate(mon, 1)`
+
+Topic
+:   Introducing the course
+
+Required Reading
+:   This syllabus
+
+Suggested Reading
+:   Priest, Mathematical Prolegomenon (Chapter 0)
+:   Note that I won't be covering this in class, unless people have questions.
+
+## `r advdate(wed, 1)`
+
+Topic
+:   Classical Propositional Logic
+
+Required Reading
+:   Priest, §§1.1-1.6.
+
+Weekly Quiz
+:   None this week
+
+## `r advdate(wed, 2)`
+
+Topic
+:   Conditionals
+
+Required Reading
+:   Priest, §§1.7-1.11
+
+Suggested Reading
+:   H. P. Grice, [*Logic and Conversation*](https://www.ucl.ac.uk/ls/studypacks/Grice-Logic.pdf).
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 2)`
+
+## `r advdate(mon, 3)`
+
+Topic
+:   Classical Predicate Logic
+
+Required Reading
+:   Priest, §§12.1-3
+
+## `r advdate(wed, 3)`
+
+Topic
+:   Classical Predicate Logic (continued)
+
+Required Reading
+:   Priest, §§12.4-12.7
+
+Suggested Reading
+:   Amie Thomasson, [*Existence Questions*](https://www.jstor.org/stable/27734315).
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 3)`
+
+# Part Two: Modal Logic
+
+## `r advdate(mon, 4)`
+
+Topic
+:   Basic Modal Logic
+
+Required Reading
+:   Priest §§2.1-3.
+
+Suggested Reading
+:   Dorothy Edgington, [*Two Kinds of Possibility*](https://academic.oup.com/aristoteliansupp/article/78/1/1/1779839)
+
+## `r advdate(wed, 4)`
+
+Topic
+:   Modal Tableaux
+
+Required Reading
+:   Priest, §§2.4-2.8.
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 4)`
+
+## `r advdate(mon, 5)`
+
+Topic
+:   Normal Modal Logics
+
+Required Reading
+:   Priest, §§3.1-3.6.
+
+## `r advdate(wed, 5)`
+
+Topic
+:   Tense Logic
+
+Required Reading
+:   Priest, §§3.6a-b.
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 5)`
+
+## `r advdate(mon, 6)`
+
+Topic
+:   Non-Normal Modal Logics
+
+Required Reading
+:   Priest, Ch. 4
+
+## `r advdate(wed, 6)`
+
+Topic
+:   Conditional Logics
+
+Required Reading
+:   Priest, Ch. 5
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 6)`
+
+## `r advdate(mon, 7)`
+
+Topic
+:   Modal Predicate Logic
+
+Required Reading
+:   Priest, Ch. 14
+
+
+## `r advdate(wed, 7)`
+
+Topic
+:   Variable Domain Modal Logic
+
+Required Reading
+:   Priest, §§15.1-4
+
+Weekly Quiz
+:   No quiz this week
+
+## `r advdate(wed, 8)`
+
+Topic
+:   More on variable domains
+
+Required Reading
+:   Priest, §§15.5-12
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 8)`
+
+## `r advdate(mon, 9)`
+
+Topic
+:   Necessary Identity in Modal Logic
+
+Required Reading
+:   Priest, Ch. 16
+
+## `r advdate(wed, 9)`
+
+Topic
+:   Contingent Identity in Modal Logic
+
+Required Reading
+:   Priest, Ch. 17
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 9)`
+
+# Part Three: Non-Classical Logics
+
+## `r advdate(mon, 10)`
+
+Topic
+:   Intuitionist Logic
+
+Required Reading
+:   Priest, Ch. 6
+
+## `r advdate(wed, 10)`
+
+Topic
+:   Many-Valued Logics
+
+Required Reading
+:   Priest, Ch. 7
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 10)`
+
+## `r advdate(mon, 11)`
+
+Topic
+:   First Degree Entailment
+
+Required Reading
+:   Priest, Ch. 8
+
+## `r advdate(wed, 11)`
+
+Topic
+:   Logics with Gaps and Gluts
+
+Required Reading
+:   Priest, Ch. 9
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 11)`
+
+## `r advdate(mon, 12)`
+
+Topic
+:   Relevant Logics
+
+Required Reading
+:   Priest, §§10.1-4a
+
+
+## `r advdate(wed, 12)`
+
+Topic
+:   The system R
+
+Required Reading
+:   Priest, §§10.5-10.11
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 12)`
+
+## `r advdate(mon, 13)`
+
+Topic
+:   Fuzzy Logics
+
+Required Reading
+:   Priest, Ch. 11
+
+Weekly Quiz
+:   None this week
+
+## `r advdate(mon, 14)`
+
+Topic
+:   Intuitionist Predicate Logic
+
+Required Reading
+:   Priest, Ch. 20
+
+## `r advdate(wed, 14)`
+
+Topic
+:    Fuzzy Predicate Logic
+
+Required Reading
+:    Priest, Ch. 25
+
+Weekly Quiz
+:   Due 5pm, `r advdate(fri, 14)`
+
+
+## `r advdate(mon, 15)`
+
+Topic
+:   Review
+
+Required Reading
+:   None
+
+- The last week will be for review, and for extra time for any topic we felt was too rushed through the course.
+
+# Plagiarism
+
+Although team-work is encouraged, plagiarism is strictly prohibited. You are responsible for making sure that none of your work is plagiarized. Be sure to cite work that you use, both direct quotations and paraphrased ideas. Any citation method that is tolerably clear is permitted, but if you'd like a good description of a citation scheme that works well in philosophy, look at <http://bit.ly/VDhRJ4>.
+
+You are encouraged to discuss the course material, including assignments, with your classmates, but all written work that you hand in under your own name must be your own. 
+
+You should also be familiar with the academic integrity policies of the College of Literature, Science & the Arts at the University of Michigan, which are available here: <http://www.lsa.umich.edu/academicintegrity/>. Violations of these policies will be reported to the Office of the Assistant Dean for Student Academic Affairs, and sanctioned with a course grade of F.
+
+# Disability
+
+The University of Michigan abides by the Americans with Disabilities Act of 1990, Section 504 of the Rehabilitation Act of 1973, and other applicable federal and state laws that prohibit discrimination on the basis of disability, which mandate that reasonable accommodations be provided for qualified students with disabilities.
+
+If you have a disability, and may require some type of instructional and/or examination accommodation, please contact me early in the semester. If you have not already done so, you will also need to register with the Office of Services for Students with Disabilities. The office is located at G664 Haven Hall.
+
+For more information on disability services at the University of Michigan, go to <http://ssd.umich.edu>.
+
+
