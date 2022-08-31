@@ -6,7 +6,7 @@ format:
   beamer: 
     aspectratio: 169
     fontsize: 17pt
-#    classoption: handout
+    classoption: handout
     papersize: letter
     navigation: empty
     incremental: true
@@ -99,7 +99,7 @@ format:
 
 ## Inputs
 
-- An assignment function $v$ is a function from sentences of the formal language to either 0 or 1.
+- As assignment function $v$ is a function from sentences of the formal language to either 0 or 1.
 - So the inputs are sentences in a particular language.
 
 ## Sentences

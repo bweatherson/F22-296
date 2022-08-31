@@ -7,7 +7,7 @@
   letterpaper,
   ignorenonframetext,
   aspectratio=169,
-]{beamer}
+  handout]{beamer}
 \usepackage{pgfpages}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
@@ -188,7 +188,7 @@
 
 \begin{document}
 \frame{\titlepage}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, breakable, frame hidden, sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
 
 \hypertarget{seven-symbols}{%
 \section{Seven Symbols}\label{seven-symbols}}
@@ -347,7 +347,7 @@
 \begin{itemize}[<+->]
 \tightlist
 \item
-  An assignment function \(v\) is a function from sentences of the
+  As assignment function \(v\) is a function from sentences of the
   formal language to either 0 or 1.
 \item
   So the inputs are sentences in a particular language.
