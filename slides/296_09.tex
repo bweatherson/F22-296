@@ -118,6 +118,25 @@
        \tableofcontents[currentsection]
    \end{frame}
 }
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows,calc}
+\tikzset{
+  modal/.style={>=stealth',
+    shorten >=1pt,
+    shorten <=1pt,
+    auto,
+   node distance=1.5cm,
+   label distance=2pt,
+   semithick},
+ every label/.style={phantom,align=left},
+ world/.style = {circle,draw,minimum size=0.5cm,fill=gray!15},
+ modal every node/.style={world},
+ point/.style={circle,draw,inner sep=0.5mm,fill=black},
+ phantom/.style={rectangle,inner sep=0pt,draw=none,fill=none},
+ reflexive above/.style={->,loop,looseness=7,in=60,out=120},
+ reflexive below/.style={->,loop,looseness=7,in=240,out=300},
+ reflexive left/.style={->,loop,looseness=7,in=150,out=210},
+ reflexive right/.style={->,loop,looseness=7,in=30,out=330}}
 \makeatletter
 \makeatother
 \makeatletter
@@ -187,11 +206,11 @@
 
 \begin{document}
 \frame{\titlepage}
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, breakable, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, sharp corners]}{\end{tcolorbox}}\fi
 
 \begin{frame}{What Modal Logic Is}
 \protect\hypertarget{what-modal-logic-is}{}
-The logics of \textbf{must} and \textbf{might}. \pause
+The logics of \textbf{must} and \textbf{might}.
 
 \begin{itemize}[<+->]
 \tightlist
@@ -216,7 +235,7 @@ The logics of \textbf{must} and \textbf{might}. \pause
 \item
   You must keep your promises.
 \item
-  If you set out a knife and fork, the fork must go on the left. \pause
+  If you set out a knife and fork, the fork must go on the left.
 \end{enumerate}
 
 To my ears, 1 is \textbf{logical} necessity, 2 is \textbf{metaphysical}
@@ -240,7 +259,7 @@ necessity, 5 is \textbf{moral} (or \textbf{deontic}) necessity and 6 is
 \item
   You may lie to save a friend's life.
 \item
-  You may use white napkins or red napkins.\pause
+  You may use white napkins or red napkins.
 \end{enumerate}
 
 To my ears, 1 is \textbf{logical} possibility, 2 is
@@ -255,18 +274,18 @@ To my ears, 1 is \textbf{logical} possibility, 2 is
 Consider this very general claim.
 
 \begin{quote}
-If something must be true, then it is true.\pause
+If something must be true, then it is true.
 \end{quote}
 
 \begin{itemize}[<+->]
 \tightlist
 \item
   That's true on the logical, epistemic and metaphysical interpretations
-  of modality. \pause Indeed, it's something like a logical truth of
-  those domains.\pause
+  of modality. Indeed, it's something like a logical truth of those
+  domains.
 \item
   But it is very much not true on the legal, moral or etiquette
-  interpretations.\pause
+  interpretations.
 \end{itemize}
 
 So we want some logics where it is a logical truth, and some where it is
@@ -407,13 +426,12 @@ worlds.
 \begin{itemize}[<+->]
 \tightlist
 \item
-  \(R\) is reflexive iff for all \(x\), \(xRx\).\pause
+  \(R\) is reflexive iff for all \(x\), \(xRx\).
 \item
-  \(R\) is symmetric iff for all \(x, y\), if \(xRy\) then
-  \(yRx\).\pause
+  \(R\) is symmetric iff for all \(x, y\), if \(xRy\) then \(yRx\).
 \item
   \(R\) is transitive iff for all \(x, y, z\) if \(xRy\) and \(yRz\)
-  then \(xRz\).\pause
+  then \(xRz\).
 \end{itemize}
 
 A lot of relations we care about have one or more of these properties,
@@ -429,8 +447,7 @@ following condition is met:
 \begin{itemize}[<+->]
 \tightlist
 \item
-  For all worlds \(y\) such that \(xRy\), \(A\) is true at world
-  \(y\).\pause
+  For all worlds \(y\) such that \(xRy\), \(A\) is true at world \(y\).
 \end{itemize}
 
 A sentence \(\Diamond A\) is true at a world \(x\) just in case the
@@ -451,7 +468,7 @@ following condition is met:
   Something is necessarily true iff it is true everywhere that is
   accessible.
 \item
-  Something is possibly true iff it is true somewhere accessible. \pause
+  Something is possibly true iff it is true somewhere accessible.
 \end{itemize}
 
 We get back the Leibnizian idea that necessity is truth in all possible
@@ -484,9 +501,638 @@ true in the same worlds/models.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{For Next Time}
-\protect\hypertarget{for-next-time}{}
-We'll talk about the relationship between boxes and diamonds.
+\begin{frame}{Duality}
+\protect\hypertarget{duality}{}
+These two claims are equivalent.
+
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  \(\Box A\)
+\item
+  \(\neg \Diamond \neg A\)
+\end{enumerate}
+
+From 1 to 2: If \(\Box A\) is true at \(x\), then \(A\) is true for all
+\(y\) such that \(xRy\). That means there is no \(y\) such that \(xRy\)
+and \(A\) is not true. That means there is no \(y\) such that \(xRy\)
+and \(\neg A\) is true. That means \(\Diamond \neg A\) is not true at
+\(w\). That means \(\neg \Diamond \neg A\) is true at \(x\).
+\end{frame}
+
+\begin{frame}{Duality}
+\protect\hypertarget{duality-1}{}
+These two claims are equivalent.
+
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  \(\Box A\)
+\item
+  \(\neg \Diamond \neg A\)
+\end{enumerate}
+
+From 2 to 1: If \(\neg \Diamond \neg A\) is true at \(x\), then
+\(\Diamond \neg A\) is not true at \(w\). So there is no world \(y\)
+such that \(xRy\) and \(\neg A\) is true at \(y\). So at all worlds
+\(y\) such that \(xRy\), \(\neg A\) is not true. So at all worlds \(y\)
+such that \(xRy\), \(A\) is true. So \(\Box A\) is true at \(x\).
+\end{frame}
+
+\begin{frame}{Duality}
+\protect\hypertarget{duality-2}{}
+These two claims are also equivalent, though I will not prove this.
+
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  \(\Diamond A\)
+\item
+  \(\neg \Box \neg A\)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Big Picture}
+\protect\hypertarget{big-picture}{}
+These claims are both logically true.
+
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  \(\Box \neg A \leftrightarrow \neg \Diamond A\)
+\item
+  \(\Diamond \neg A \leftrightarrow \neg \Box A\)
+\end{enumerate}
+
+To move a negation sign outside of a modal operator, either \(\Box\) or
+\(\Diamond\), you have to rotate the operator by 45 degrees.
+\end{frame}
+
+\begin{frame}{Normality}
+\protect\hypertarget{normality}{}
+This sentence is also true no matter what the model looks like, and no
+matter what sentence \(A\) is.
+
+\begin{quote}
+\(\Box (A \rightarrow B) \rightarrow (\Box A \rightarrow \Box B)\)
+\end{quote}
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Assume it is false at \(w\).
+\item
+  So \(\Box (A \rightarrow B)\) is true at \(w\) and
+  \((\Box A \rightarrow \Box B)\) is false at \(w\).
+\item
+  So \(\Box A\) is true at \(w\) and \(\Box B\) is false at \(w\).
+\item
+  So at every where \(y\) such that \(wRy\), \(A\) must be true (since
+  \(\Box A\) is true at \(w\)), and \(A \rightarrow B\) must be true
+  (since \(\Box(A \rightarrow B)\) is true at \(w\)).
+\item
+  If \(A\) and \(A \rightarrow B\) are true at \(y\), \(B\) must be true
+  at \(y\) as well.
+\item
+  But this implies that \(B\) is true all \(y\) such that \(wRy\),
+  contradicting the assumption that \(\Box B\) is false at \(w\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Normality}
+\protect\hypertarget{normality-1}{}
+This principle has a very important role in the history of modal logics.
+
+\begin{quote}
+\(\Box (A \rightarrow B) \rightarrow (\Box A \rightarrow \Box B)\)
+\end{quote}
+
+Having this be an axiom is one of two conditions on what have come to be
+called \textbf{normal} modal logics.
+\end{frame}
+
+\begin{frame}{Models}
+\protect\hypertarget{models}{}
+Models have three parts:
+
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  A set of worlds, typically called \(W\).
+\item
+  A binary accessibility relation on those worlds, typically called
+  \(R\).
+\item
+  A valuation function on those worlds, typically called \(V\).
+\end{enumerate}
+
+We'll write the models as \(\langle W, R, V\rangle\).
+\end{frame}
+
+\begin{frame}{Valuations}
+\protect\hypertarget{valuations-1}{}
+\(V\) is a function from atomic sentence letters to subsets of \(W\).
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  It tells you when the atomic sentences are true.
+\item
+  When an atomic sentence is not true, it is false.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Truth at a Point}
+\protect\hypertarget{truth-at-a-point}{}
+The general theory of truth is built up in stages from the basic theory.
+Assume we have a model \(\langle W, R, V\rangle\), and a point
+\(w \in W\), and are asking whether an arbitrary sentence is true at
+\(w\) in \(\langle W, R, V\rangle\).
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \(p\) is true at \(w\) iff \(w \in V(p)\).
+\item
+  \(\neg A\) is true at \(w\) iff \(A\) is not true at \(w\).
+\item
+  \(A \wedge B\) is true at \(w\) iff \(A\) is true and \(w\) and \(B\)
+  is true at \(w\).
+\item
+  \(A \vee B\) is true at \(w\) iff \(A\) is true and \(w\) or \(B\) is
+  true at \(w\).
+\item
+  \(A \rightarrow B\) is true at \(w\) iff \(A\) is false at \(w\) or
+  \(B\) is true at \(w\).
+\end{itemize}
+
+This just leaves the modal formulae. I'll set out the rules, then do
+some worked examples.
+\end{frame}
+
+\begin{frame}{Necessary Truth at a Point}
+\protect\hypertarget{necessary-truth-at-a-point}{}
+First we'll do \(\Box A\).
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  I'll read this as `Box \(A\)'.
+\item
+  Intuitively, it means \textbf{It must be that A}, where \textbf{must}
+  could be a metaphysical necessity, or an epistemic necessity, or a
+  moral necessity, or anything else.
+\item
+  And it is true at \(w\) just in case \(A\) is true at every world
+  \(y\) such that \(wRy\).
+\item
+  Necessary truth is truth at all accessible worlds.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Possible Truth at a Point}
+\protect\hypertarget{possible-truth-at-a-point}{}
+Now we'll do \(\Diamond A\).
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  I'll read this as `Diamond \(A\)'.
+\item
+  Intuitively, it means \textbf{It might be that A}, where
+  \textbf{might} could be a metaphysical necessity, or an epistemic
+  necessity, or a moral necessity, or anything else.
+\item
+  And it is true at \(w\) just in case \(A\) is true at some world \(y\)
+  such that \(wRy\).
+\item
+  Possible truth is truth at some accessible world.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Iterated Modalities}
+\protect\hypertarget{iterated-modalities}{}
+We can run these rules in sequence.
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  What does it take for \(\Box \Box A\) to be true at \(w\)?
+\item
+  It is for \(\Box A\) to be true at every \(y\) such that \(wRy\).
+\item
+  And that means that \(A\) has to be true at every world \(z\) such
+  that \(yRz\) (for any \(y\) such that \(wRy)\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Access}
+\protect\hypertarget{access}{}
+We can think, a little picturesquely, as the accessibility relation
+being a `step' between worlds.
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  If \(wRy\), then you can `step' from \(w\) to \(y\).
+\item
+  \(\Box A\) means that anywhere you can step to from \(w\) is a world
+  where \(A\) is true.
+\item
+  And \(\Box \Box A\) means that anywhere you can get to in two steps
+  from \(w\) is a world where \(A\) is true.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Iterated Modalities}
+\protect\hypertarget{iterated-modalities-1}{}
+We can run the rules in sequence.
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  What does it take for \(\Diamond \Diamond A\) to be true at \(w\)?
+\item
+  It is for \(\Diamond A\) to be true at some \(y\) such that \(wRy\).
+\item
+  And that means that \(A\) has to be true at some world \(z\) such that
+  \(yRz\) (for some \(y\) such that \(wRy)\).
+\item
+  In the picturesque terms, you can get from \(w\) to an \(A\)-world in
+  two steps.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mixed Modalities}
+\protect\hypertarget{mixed-modalities}{}
+What does it mean for \(\Diamond \Box A\) to be true at \(w\)?
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  There is some accessible world where \(\Box A\) is true.
+\item
+  That is, there is some accessible world such that everywhere you can
+  go from there, \(A\) is true.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Mixed Modalities}
+\protect\hypertarget{mixed-modalities-1}{}
+What does it mean for \(\Box \Diamond A\) to be true at \(w\)?
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  At all accessible worlds, \(\Diamond A\) is true.
+\item
+  That is, wherever you go, you can get to there is some accessible
+  world such that everywhere you can go from there, \(A\) is true.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Longer Sentences}
+\protect\hypertarget{longer-sentences}{}
+What does it mean for \(\Box(p \vee (q \rightarrow \Diamond r))\) to be
+true at \(w\)?
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  It's for \(p \vee (q \rightarrow \Diamond r)\) to be true everywhere
+  you can get to (in one step) from \(w\).
+\item
+  That is, at every one of those worlds, either \(p\) is true or
+  \(q \rightarrow \Diamond r\) is true.
+\item
+  That is, at every one of those worlds, either \(p\) is true, or \(q\)
+  is false, or \(\Diamond r\) is true.
+\item
+  That is, at every one of those worlds, either \(p\) is true, or \(q\)
+  is false, or there is some world you can get to where \(r\) is true.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Box and connectives}
+\protect\hypertarget{box-and-connectives}{}
+The general rule is just to apply the rules for sentences inside the
+brackets at each world in \(W\), and then apply the rule for \(\Box\) or
+\(\Diamond\). But there are three special cases worth thinking about.
+
+\begin{itemize}[<+->]
+\tightlist
+\item
+  \(\Box(A \wedge B)\) means that all accessible worlds are \(A\) and
+  \(B\) worlds.
+\item
+  \(\Box(A \vee B)\) means that all accessible worlds make at least one
+  of \(A\) and \(B\) true.
+\item
+  \(\Box(A \rightarrow B)\) means that all accessible \(A\)-worlds are
+  \(B\)-worlds.
+\end{itemize}
+
+We'll use that last one a lot.
+\end{frame}
+
+\begin{frame}
+I'm going to go through this table and show how each of them can be
+false.
+
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  \(\Box(A \vee B) \rightarrow (\Box A \vee \Box B)\)
+\item
+  \((\Diamond A \wedge \Diamond B) \rightarrow \Diamond (A \wedge B)\)
+\item
+  \(A \rightarrow \Box A\)
+\item
+  \(\Box A \rightarrow A\)
+\item
+  \(\Box \Diamond A \rightarrow B\)
+\item
+  \(\Box \Diamond A \rightarrow A\)
+\item
+  \(\Box \Box A \rightarrow \Box A\)
+\item
+  \(\Box A \rightarrow \Box \Box A\)
+\item
+  \(\Box \Diamond A \rightarrow \Diamond \Box A\)
+\item
+  \(\Box A \rightarrow \Diamond A\)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{\(\Box(A \vee B) \rightarrow (\Box A \vee \Box B)\)}
+\protect\hypertarget{boxa-vee-b-rightarrow-box-a-vee-box-b}{}
+\begin{columns}
+    \begin{column}{0.65\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A,B$}; 
+      \node[world] (w2) [label=left:$w_2$, above left=of w1]{$A, \neg B$}; 
+      \node[world] (w3) [label=right:$w_3$, above right=of w1] {$\neg A, B$};
+      \draw[->] (w1) to (w2);
+      \draw[->] (w1) to (w3);
+      \draw[->] (w2) to (w1);
+      \draw[->] (w3) to (w1);
+      \draw[->] (w3) to (w2);
+      \draw[->] (w2) to (w3);
+      \path[->] (w2) edge[reflexive above] (w2);
+      \path[->] (w3) edge[reflexive above] (w3);
+      \path[->] (w1) edge[reflexive below] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+At all points, either $A$ or $B$ is true, so $\Box(A \vee B)$ is true.  
+
+\bigskip
+
+But $\Box A$ and $\Box B$ are false everywhere.  So the conditional is false everywhere.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box(A \vee B) \rightarrow (\Box A \vee \Box B)\)}
+\protect\hypertarget{boxa-vee-b-rightarrow-box-a-vee-box-b-1}{}
+\begin{columns}
+    \begin{column}{0.65\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A,B$}; 
+      \node[world] (w2) [label=left:$w_2$, above left=of w1]{$A, \neg B$}; 
+      \node[world] (w3) [label=right:$w_3$, above right=of w1] {$\neg A, B$};
+      \draw[->] (w1) to (w2);
+      \draw[->] (w1) to (w3);
+      \draw[->] (w2) to (w1);
+      \draw[->] (w3) to (w1);
+      \draw[->] (w3) to (w2);
+      \draw[->] (w2) to (w3);
+      \path[->] (w2) edge[reflexive above] (w2);
+      \path[->] (w3) edge[reflexive above] (w3);
+      \path[->] (w1) edge[reflexive below] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+Note that this is overkill. We just need to show that the formula can be false somewhere in order to show that it is not a theorem.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\((\Diamond A \wedge \Diamond B) \rightarrow \Diamond (A \wedge B)\)}
+\protect\hypertarget{diamond-a-wedge-diamond-b-rightarrow-diamond-a-wedge-b}{}
+\begin{columns}
+    \begin{column}{0.65\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A, \neg B$}; 
+      \node[world] (w2) [label=left:$w_2$, above left=of w1]{$A, \neg B$}; 
+      \node[world] (w3) [label=right:$w_3$, above right=of w1] {$\neg A, B$};
+      \draw[->] (w1) to (w2);
+      \draw[->] (w1) to (w3);
+      \draw[->] (w2) to (w1);
+      \draw[->] (w3) to (w1);
+      \draw[->] (w3) to (w2);
+      \draw[->] (w2) to (w3);
+      \path[->] (w2) edge[reflexive above] (w2);
+      \path[->] (w3) edge[reflexive above] (w3);
+      \path[->] (w1) edge[reflexive below] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+
+At $w_1$, we have $\Diamond A \wedge \Diamond B$ true. 
+
+ \bigskip
+
+But nowhere is $A \wedge B$ true, so $\Diamond(A \wedge B)$ is false at $w_1$. So the conditional is false. 
+
+ \bigskip
+
+Again, this is overkill.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(A \rightarrow \Box A\)}
+\protect\hypertarget{a-rightarrow-box-a}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \draw[->] (w1) to (w2);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $A$ is true.
+    \item But $\Box A$ is false, since $w_1$ can access $w_2$, and $A$ is false there.
+    \item So $A \rightarrow \Box A$ is false.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box A \rightarrow A\)}
+\protect\hypertarget{box-a-rightarrow-a}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A$}; 
+      \draw[->] (w1) to (w2);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $\Box A$ is true. The only accessible world is $w_2$, and $A$ is true there.
+    \item But $A$ is false there.
+    \item So $\Box A \rightarrow A$ is false.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box \Diamond A \rightarrow B\)}
+\protect\hypertarget{box-diamond-a-rightarrow-b}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A, \neg B$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A, \neg B$}; 
+      \draw[->] (w1) to (w2);
+     \path[->] (w2) edge[reflexive above] (w2);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $\Box \Diamond A$ is true. The only accessible world is $w_2$, and $\Diamond A$ is true there. (Why?)
+    \item But $B$ is false at $w_1$.
+    \item So $\Box \Diamond A \rightarrow B$ is false.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box \Diamond A \rightarrow A\)}
+\protect\hypertarget{box-diamond-a-rightarrow-a}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A$}; 
+      \draw[->] (w1) to (w2);
+     \path[->] (w2) edge[reflexive above] (w2);
+     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $\Box \Diamond A$ is true. At every world, $w_2$ is accessible, and $A$ is true there.
+    \item But $A$ is false at $w_1$.
+    \item So $\Box \Diamond A \rightarrow A$ is false at $w_1$.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box \Box A \rightarrow \Box A\)}
+\protect\hypertarget{box-box-a-rightarrow-box-a}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+%     \path[->] (w2) edge[reflexive above] (w2);
+%     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item The only world $w_2$ can access is $w_3$, and $A$ is true there, so $\Box A$ is true at $w_2$.
+    \item The only world $w_1$ can access is $w_2$, and $\Box A$ is true there, so $\Box \Box A$ is true at $w_1$.
+    \item But $\Box A$ is false at $w_1$.
+    \item So $\Box \Box A \rightarrow \Box A$ is false at $w_1$.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box A \rightarrow \Box \Box A\)}
+\protect\hypertarget{box-a-rightarrow-box-box-a}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$\neg A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+     \path[->] (w2) edge[reflexive above] (w2);
+     \path[->] (w3) edge[reflexive above] (w3);
+     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item Since $A$ is false at $w_3$, and $w_2$ can access $w_3$, $\Box A$ is false at $w_2$.
+    \item Since $\Box A$ is false at $w_2$, and $w_1$ can access $w_2$, $\Box \Box A$ is false at $w_1$.
+    \item But $\Box A$ is true at $w_1$.
+    \item So $\Box A \rightarrow \Box \Box A$ is false at $w_1$.
+    \end{itemize}
+       \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box A \rightarrow \Diamond A\)}
+\protect\hypertarget{box-a-rightarrow-diamond-a}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+%     \path[->] (w2) edge[reflexive above] (w2);
+%     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item Focus on $w_3$.
+    \item There is no accessible world where $A$ is false, so $\Box A$ is true there.
+    \item But there is no accessible world where $A$ is true, so $\Diamond A$ is false there.
+    \item So $\Box A \rightarrow \Diamond A$ is false there.
+    \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\Box A \rightarrow \Diamond A\)}
+\protect\hypertarget{box-a-rightarrow-diamond-a-1}{}
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+%     \path[->] (w2) edge[reflexive above] (w2);
+%     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    Whenever there are no accessible worlds, the following two weird things happen.
+    \begin{enumerate}
+    \item All $\Box$-sentences (i.e., sentences that start with a $\Box$ that takes scope over the whole sentence) are true.
+    \item All $\Diamond$-sentences (i.e., sentences that start with a $\Diamond$ that takes scope over the whole sentence) are false.
+    \end{enumerate}
+   \end{column}
+\end{columns}
 \end{frame}
 
 
