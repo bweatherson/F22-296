@@ -1,0 +1,391 @@
+---
+title: "Honors Logic, Lecture 12 - Modal Logic"
+author: "Brian Weatherson"
+date: 2022-10-10
+format: 
+  beamer: 
+    aspectratio: 169
+    fontsize: 14pt
+    classoption: handout
+    papersize: letter
+    navigation: empty
+    incremental: true
+#    innertheme: default
+#    outertheme: miniframes
+    theme: boxes
+    colortheme: wolverine
+    mainfont: SF Pro Text Light
+    mainfontoptions: BoldFont = SF Pro Text Semibold, Scale = MatchLowercase
+    mathfont: STIX Two Math
+    mainfontoptions: Scale=MatchLowercase
+    keep-tex: true
+    include-in-header:
+      text: |
+       \captionsetup[figure]{labelformat=empty}
+       \usepackage{pgfpages}
+       \setbeamertemplate{itemize item}[circle]
+       \setbeamertemplate{footline}[frame number]{}
+       \mode<handout>{\pgfpagesuselayout{6 on 1}[letterpaper, border shrink=8mm]}
+       \AtBeginSection{%
+          \begin{frame}
+              \tableofcontents[currentsection]
+          \end{frame}
+       }
+       \usepackage{tikz}
+       \usetikzlibrary{positioning,arrows,calc}
+       \tikzset{
+         modal/.style={>=stealth',
+           shorten >=1pt,
+           shorten <=1pt,
+           auto,
+          node distance=1.5cm,
+          label distance=2pt,
+          semithick},
+        every label/.style={phantom,align=left},
+        world/.style = {circle,draw,minimum size=0.5cm,fill=gray!15},
+        modal every node/.style={world},
+        point/.style={circle,draw,inner sep=0.5mm,fill=black},
+        phantom/.style={rectangle,inner sep=0pt,draw=none,fill=none},
+        reflexive above/.style={->,loop,looseness=7,in=60,out=120},
+        reflexive below/.style={->,loop,looseness=7,in=240,out=300},
+        reflexive left/.style={->,loop,looseness=7,in=150,out=210},
+        reflexive right/.style={->,loop,looseness=7,in=30,out=330}}
+
+---
+
+## Access
+
+We can think, a little picturesquely, as the accessibility relation being a `step' between worlds.
+
+- If $wRy$, then you can `step' from $w$ to $y$.
+- $\Box A$ means that anywhere you can step to from $w$ is a world where $A$ is true.
+- And $\Box \Box A$ means that anywhere you can get to in two steps from $w$ is a world where $A$ is true.
+
+## Iterated Modalities
+
+We can run the rules in sequence.
+
+- What does it take for $\Diamond \Diamond A$ to be true at $w$? 
+- It is for $\Diamond A$ to be true at some $y$ such that $wRy$.
+- And that means that $A$ has to be true at some world $z$ such that $yRz$ (for some $y$ such that $wRy)$.
+- In the picturesque terms, you can get from $w$ to an $A$-world in two steps.
+
+## Mixed Modalities
+
+What does it mean for $\Diamond \Box A$ to be true at $w$?
+
+- There is some accessible world where $\Box A$ is true.
+- That is, there is some accessible world such that everywhere you can go from there, $A$ is true.
+
+## Mixed Modalities
+
+What does it mean for $\Box \Diamond A$ to be true at $w$?
+
+- At all accessible worlds, $\Diamond A$ is true.
+- That is, wherever you go, you can get to there is some accessible world such that everywhere you can go from there, $A$ is true.
+
+## Longer Sentences
+
+What does it mean for $\Box(p \vee (q \supset \Diamond r))$ to be true at $w$? 
+
+- It's for $p \vee (q \supset \Diamond r)$ to be true everywhere you can get to (in one step) from $w$.
+- That is, at every one of those worlds, either $p$ is true or $q \supset \Diamond r$ is true.
+- That is, at every one of those worlds, either $p$ is true, or $q$ is false, or $\Diamond r$ is true. 
+- That is, at every one of those worlds, either $p$ is true, or $q$ is false, or there is some world you can get to where $r$ is true. 
+
+## Box and connectives
+
+The general rule is just to apply the rules for sentences inside the brackets at each world in $W$, and then apply the rule for $\Box$ or $\Diamond$. But there are three special cases worth thinking about.
+
+- $\Box(A \wedge B)$ means that all accessible worlds are $A$ and $B$ worlds. 
+- $\Box(A \vee B)$ means that all accessible worlds make at least one of $A$ and $B$ true.
+- $\Box(A \supset B)$ means that all accessible $A$-worlds are $B$-worlds.
+
+We'll use that last one a lot.
+
+## A Weird Special Case
+
+If for some $w$ there is no $x$ such that $wRx$, then at $w$:
+
+1. Every box sentence is true.
+2. Every diamond sentence is false.
+
+- This is weird; normally box something is a much **stronger** claim than diamond, but this is a weird exception.
+
+## A Weird Special Case
+
+I normally wouldn't mention this, because it's not something that's of particular philosophical significance.
+
+- Except, when we're doing trees/tableau, we start out with no R relations at all, so we end up in this special case a lot. It's somewhat annoying to spend so much time doing something with no philosophical relevance, but it is mathematicaly convenient to have these cases around.
+
+---
+
+I'm going to go through this table and show how each of them can be false.
+
+1. $\Box(A \vee B) \supset (\Box A \vee \Box B)$
+2. $(\Diamond A \wedge \Diamond B) \supset \Diamond (A \wedge B)$
+3. $A \supset \Box A$
+4. $\Box A \supset A$
+5. $\Box \Diamond A \supset B$
+6. $\Box \Diamond A \supset A$
+7. $\Box \Box A \supset \Box A$
+8. $\Box A \supset \Box \Box A$
+9. $\Box \Diamond A \supset \Diamond \Box A$
+10. $\Box A \supset \Diamond A$
+
+## $\Box(A \vee B) \supset (\Box A \vee \Box B)$
+
+\begin{columns}
+    \begin{column}{0.65\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A,B$}; 
+      \node[world] (w2) [label=left:$w_2$, above left=of w1]{$A, \neg B$}; 
+      \node[world] (w3) [label=right:$w_3$, above right=of w1] {$\neg A, B$};
+      \draw[->] (w1) to (w2);
+      \draw[->] (w1) to (w3);
+      \draw[->] (w2) to (w1);
+      \draw[->] (w3) to (w1);
+      \draw[->] (w3) to (w2);
+      \draw[->] (w2) to (w3);
+	  \path[->] (w2) edge[reflexive above] (w2);
+	  \path[->] (w3) edge[reflexive above] (w3);
+	  \path[->] (w1) edge[reflexive below] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+At all points, either $A$ or $B$ is true, so $\Box(A \vee B)$ is true.  
+
+\bigskip
+
+But $\Box A$ and $\Box B$ are false everywhere.  So the conditional is false everywhere.
+\end{column}
+\end{columns}
+
+## $\Box(A \vee B) \supset (\Box A \vee \Box B)$
+
+\begin{columns}
+    \begin{column}{0.65\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A,B$}; 
+      \node[world] (w2) [label=left:$w_2$, above left=of w1]{$A, \neg B$}; 
+      \node[world] (w3) [label=right:$w_3$, above right=of w1] {$\neg A, B$};
+      \draw[->] (w1) to (w2);
+      \draw[->] (w1) to (w3);
+      \draw[->] (w2) to (w1);
+      \draw[->] (w3) to (w1);
+      \draw[->] (w3) to (w2);
+      \draw[->] (w2) to (w3);
+	  \path[->] (w2) edge[reflexive above] (w2);
+	  \path[->] (w3) edge[reflexive above] (w3);
+	  \path[->] (w1) edge[reflexive below] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+Note that this is overkill. We just need to show that the formula can be false somewhere in order to show that it is not a theorem.
+\end{column}
+\end{columns}
+
+## $(\Diamond A \wedge \Diamond B) \supset \Diamond (A \wedge B)$
+
+\begin{columns}
+    \begin{column}{0.65\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A, \neg B$}; 
+      \node[world] (w2) [label=left:$w_2$, above left=of w1]{$A, \neg B$}; 
+      \node[world] (w3) [label=right:$w_3$, above right=of w1] {$\neg A, B$};
+      \draw[->] (w1) to (w2);
+      \draw[->] (w1) to (w3);
+      \draw[->] (w2) to (w1);
+      \draw[->] (w3) to (w1);
+      \draw[->] (w3) to (w2);
+      \draw[->] (w2) to (w3);
+	  \path[->] (w2) edge[reflexive above] (w2);
+	  \path[->] (w3) edge[reflexive above] (w3);
+	  \path[->] (w1) edge[reflexive below] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+
+At $w_1$, we have $\Diamond A \wedge \Diamond B$ true. 
+
+ \bigskip
+
+But nowhere is $A \wedge B$ true, so $\Diamond(A \wedge B)$ is false at $w_1$. So the conditional is false. 
+
+ \bigskip
+
+Again, this is overkill.
+\end{column}
+\end{columns}
+
+## $A \supset \Box A$
+
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \draw[->] (w1) to (w2);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $A$ is true.
+    \item But $\Box A$ is false, since $w_1$ can access $w_2$, and $A$ is false there.
+    \item So $A \supset \Box A$ is false.
+    \end{itemize}
+  \end{column}
+\end{columns}
+ 
+## $\Box A \supset A$
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A$}; 
+      \draw[->] (w1) to (w2);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $\Box A$ is true. The only accessible world is $w_2$, and $A$ is true there.
+    \item But $A$ is false there.
+    \item So $\Box A \supset A$ is false.
+    \end{itemize}
+  \end{column}
+\end{columns}
+
+## $\Box \Diamond A \supset B$
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A, \neg B$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A, \neg B$}; 
+      \draw[->] (w1) to (w2);
+     \path[->] (w2) edge[reflexive above] (w2);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $\Box \Diamond A$ is true. The only accessible world is $w_2$, and $\Diamond A$ is true there. (Why?)
+    \item But $B$ is false at $w_1$.
+    \item So $\Box \Diamond A \supset B$ is false.
+    \end{itemize}
+  \end{column}
+\end{columns}
+
+## $\Box \Diamond A \supset A$
+
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.6,modal,world/.append style={minimum size=1.5cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A$}; 
+      \draw[->] (w1) to (w2);
+     \path[->] (w2) edge[reflexive above] (w2);
+     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item At $w_1$ $\Box \Diamond A$ is true. At every world, $w_2$ is accessible, and $A$ is true there.
+    \item But $A$ is false at $w_1$.
+    \item So $\Box \Diamond A \supset A$ is false at $w_1$.
+    \end{itemize}
+  \end{column}
+\end{columns}
+ 
+## $\Box \Box A \supset \Box A$
+
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+%     \path[->] (w2) edge[reflexive above] (w2);
+%     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item The only world $w_2$ can access is $w_3$, and $A$ is true there, so $\Box A$ is true at $w_2$.
+    \item The only world $w_1$ can access is $w_2$, and $\Box A$ is true there, so $\Box \Box A$ is true at $w_1$.
+    \item But $\Box A$ is false at $w_1$.
+    \item So $\Box \Box A \supset \Box A$ is false at $w_1$.
+    \end{itemize}
+  \end{column}
+\end{columns}
+ 
+## $\Box A \supset \Box \Box A$
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$\neg A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+     \path[->] (w2) edge[reflexive above] (w2);
+     \path[->] (w3) edge[reflexive above] (w3);
+     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item Since $A$ is false at $w_3$, and $w_2$ can access $w_3$, $\Box A$ is false at $w_2$.
+    \item Since $\Box A$ is false at $w_2$, and $w_1$ can access $w_2$, $\Box \Box A$ is false at $w_1$.
+    \item But $\Box A$ is true at $w_1$.
+    \item So $\Box A \supset \Box \Box A$ is false at $w_1$.
+    \end{itemize}
+       \end{column}
+\end{columns}
+ 
+## $\Box A \supset \Diamond A$
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+%     \path[->] (w2) edge[reflexive above] (w2);
+%     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item Focus on $w_3$.
+    \item There is no accessible world where $A$ is false, so $\Box A$ is true there.
+    \item But there is no accessible world where $A$ is true, so $\Diamond A$ is false there.
+    \item So $\Box A \supset \Diamond A$ is false there.
+    \end{itemize}
+\end{column}
+\end{columns}
+ 
+## $\Box A \supset \Diamond A$
+
+\begin{columns}
+    \begin{column}{0.45\textwidth}
+        \begin{tikzpicture}[scale=0.5,modal,world/.append style={minimum size=1cm}]
+      \node[world] (w1) [label=right:$w_1$]{$\neg A$}; 
+      \node[world] (w2) [label=left:$w_2$, above =of w1]{$\neg A$}; 
+      \node[world] (w3) [label=right:$w_3$, right =of w2]{$A$}; 
+      \draw[->] (w1) to (w2);
+      \draw[->] (w2) to (w3);
+%     \path[->] (w2) edge[reflexive above] (w2);
+%     \path[->] (w1) edge[reflexive left] (w1);
+    \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+	Whenever there are no accessible worlds, the following two weird things happen.
+    \begin{enumerate}
+    \item All $\Box$-sentences (i.e., sentences that start with a $\Box$ that takes scope over the whole sentence) are true.
+    \item All $\Diamond$-sentences (i.e., sentences that start with a $\Diamond$ that takes scope over the whole sentence) are false.
+    \end{enumerate}
+   \end{column}
+\end{columns}
+ 

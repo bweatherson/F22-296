@@ -1,0 +1,250 @@
+---
+title: "Honors Logic, Lecture 13 - Modal Logic"
+author: "Brian Weatherson"
+date: 2022-10-12
+format: 
+  beamer: 
+    aspectratio: 169
+    fontsize: 14pt
+#    classoption: handout
+    papersize: letter
+    navigation: empty
+    incremental: false
+#    innertheme: default
+#    outertheme: miniframes
+    theme: boxes
+    colortheme: wolverine
+    mainfont: SF Pro Text Light
+    mainfontoptions: BoldFont = SF Pro Text Semibold, Scale = MatchLowercase
+    mathfont: STIX Two Math
+    mainfontoptions: Scale=MatchLowercase
+    keep-tex: true
+    include-in-header:
+      text: |
+       \captionsetup[figure]{labelformat=empty}
+       \usepackage{pgfpages}
+       \setbeamertemplate{itemize item}[circle]
+       \setbeamertemplate{footline}[frame number]{}
+       \mode<handout>{\pgfpagesuselayout{6 on 1}[letterpaper, border shrink=8mm]}
+       \AtBeginSection{%
+          \begin{frame}
+              \tableofcontents[currentsection]
+          \end{frame}
+       }
+       \usepackage{tikz}
+       \usetikzlibrary{positioning,arrows,calc}
+       \tikzset{
+         modal/.style={>=stealth',
+           shorten >=1pt,
+           shorten <=1pt,
+           auto,
+          node distance=1.5cm,
+          label distance=2pt,
+          semithick},
+        every label/.style={phantom,align=left},
+        world/.style = {circle,draw,minimum size=0.5cm,fill=gray!15},
+        modal every node/.style={world},
+        point/.style={circle,draw,inner sep=0.5mm,fill=black},
+        phantom/.style={rectangle,inner sep=0pt,draw=none,fill=none},
+        reflexive above/.style={->,loop,looseness=7,in=60,out=120},
+        reflexive below/.style={->,loop,looseness=7,in=240,out=300},
+        reflexive left/.style={->,loop,looseness=7,in=150,out=210},
+        reflexive right/.style={->,loop,looseness=7,in=30,out=330}}
+
+---
+
+
+## Six New Steps
+
+1. Every line has a world number.
+2. The rules for non-modal connectives preserve world.
+3. For negated modals, move negation inside and flip
+4. For true $\Diamond$ sentences, introduce a new world.
+5. For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.
+6. Only close a branch when a sentence is true and false at same world.
+
+## Step 1
+
+1. **Every line has a world number.**
+2. The rules for non-modal connectives preserve world.
+3. For negated modals, move negation inside and flip
+4. For true $\Diamond$ sentences, introduce a new world.
+5. For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.
+6. Only close a branch when a sentence is true and false at same world.
+
+## World Numbers
+
+Lines now look like this.
+
+\begin{center}
+$p \wedge q, 1$
+\end{center}
+
+Read this as saying that the conjunction $p \wedge q$ is true at world 1.
+
+## Step 2
+
+1. Every line has a world number.
+2. **The rules for non-modal connectives preserve world.**
+3. For negated modals, move negation inside and flip
+4. For true $\Diamond$ sentences, introduce a new world.
+5. For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.
+6. Only close a branch when a sentence is true and false at same world.
+
+## World Preservation
+
+- All the old rules didn't have line numbers.
+- But the way to apply them is just to keep the world numbers the same.
+
+## Example 1
+
+\begin{center}
+$p \wedge q, 3$ \\
+$p, 3$ \\
+$q, 3$ \\
+\end{center}
+
+## Example 2
+
+\begin{center}
+$p \supset q, 4$ \\
+$\neg p, 4               q, 4$ \\
+\end{center}
+
+## Step 3
+
+1. Every line has a world number.
+2. The rules for non-modal connectives preserve world.
+3. **For negated modals, move negation inside and flip.**
+4. For true $\Diamond$ sentences, introduce a new world.
+5. For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.
+6. Only close a branch when a sentence is true and false at same world.
+
+
+## Negated Modals ($\Diamond$)
+
+For each of them, the rule is move the negation inside, and invert.
+
+\begin{center}
+$\neg \Diamond A, n$ \\
+$\Box \neg A, n$
+\end{center}
+
+Note that the world stays the same, as does what comes after the modal.
+
+## Negated Modals ($\Box$)
+
+For each of them, the rule is move the negation inside, and invert.
+
+\begin{center}
+$\neg \Box A, n$ \\
+$\Diamond \neg A, n$
+\end{center}
+
+Note that the world stays the same, as does what comes after the modal.
+
+## Step 4
+
+1. Every line has a world number.
+2. The rules for non-modal connectives preserve world.
+3. For negated modals, move negation inside and flip.
+4. **For true $\Diamond$ sentences, introduce a new world.**
+5. For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.
+6. Only close a branch when a sentence is true and false at same world.
+
+## Example 3
+
+Here is an instance of the true $\Diamond$ rule in action.
+
+\begin{center}
+$\Diamond(p \wedge \Box q), 4$ \\
+$4r5$ \\
+$p \wedge \Box q, 5$
+\end{center}
+
+- This would only be ok if 5 had not been used on the branch before.
+
+## General Rule
+
+When you have a true $Diamond$ sentence:
+
+- On a new line, copy down the sentence;
+- Delete the $\Diamond$;
+- Change the world number to a number that didn't previously appear on the tree.
+- Write that the world from the original sentence can access the new world.
+- That's it; there are no more rules to apply.
+
+## Explanation
+
+A true $\Diamond$ sentence says that at some accessible world, what's inside the $\Diamond$ is true.
+
+- Since the world names are arbitrary, we're just giving whatever world that is an arbitrary name.
+- And it's accessible, so we say that the original world can see it.
+- You have two lines to write down; the order you write them in doesn't matter.
+
+## Step 5
+
+1. Every line has a world number.
+2. The rules for non-modal connectives preserve world.
+3. For negated modals, move negation inside and flip.
+4. For true $\Diamond$ sentences, introduce a new world.
+5. **For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.**
+6. Only close a branch when a sentence is true and false at same world.
+
+## Do Nothing
+
+Here is a completed tableau showing that $\Box p \vdash p$ is not a theorem of the basic modal logic K.
+
+\begin{center}
+$\Box p, 0$ \\
+$\neg p, 0$
+\end{center}
+
+There's nothing more to do.
+
+## Example 4 - $\Box p \vdash \Box \Box p$
+
+\begin{center}
+$\Box p, 0$ \\
+$\neg \Box \Box p, 0$ \\
+$\Diamond \neg \Box p, 0$ \\
+$0r1$ \\
+$\neg \Box p, 1$ \\
+$p, 1$ \\ 
+$\Diamond \neg p, 1$ \\
+$1r2$ \\
+$\neg p, 2$
+\end{center}
+
+All the rules are applied. Crucially, because the only 0rx is for x=1, just apply line 1 to world 1.
+
+## Step 6
+
+1. Every line has a world number.
+2. The rules for non-modal connectives preserve world.
+3. For negated modals, move negation inside and flip.
+4. For true $\Diamond$ sentences, introduce a new world.
+5. For true $\Box$ worlds, do nothing at first, but make boxed sentence true everywhere accessible.
+6. **Only close a branch when a sentence is true and false at same world.**
+
+## Don't do this!!!
+
+A tableau that 'shows' the mistaken claim $\vdash \neg(\Diamond p \wedge \Diamond \neg p)$
+
+\begin{center}
+$\neg \neg(\Diamond p \wedge \Diamond \neg p), 0$ \\
+$\Diamond p \wedge \Diamond \neg p, 0$ \\
+$\Diamond p, 0$ \\
+$\Diamond \neg p, 0$ \\
+$0r1$ \\
+$p, 1$ \\
+$0r2$ \\
+$\neg p, 2$ \\
+x (since $p$ and $\neg p$)
+\end{center}
+
+## More examples
+
+We'll work through some more examples from the exercises at the end of chapter 2
+
+
