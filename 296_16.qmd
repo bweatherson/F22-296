@@ -1,0 +1,560 @@
+---
+title: "Honors Logic, Lecture 16 - Modal Logic"
+author: "Brian Weatherson"
+date: 2022-10-26
+format: 
+  beamer: 
+#    aspectratio: 169
+    fontsize: 14pt
+#    classoption: handout
+    papersize: letter
+    navigation: empty
+    incremental: false
+#    innertheme: default
+#    outertheme: miniframes
+    theme: boxes
+    colortheme: wolverine
+    mainfont: SF Pro Text Light
+    mainfontoptions: BoldFont = SF Pro Text Semibold, Scale = MatchLowercase
+    mathfont: STIX Two Math
+    mainfontoptions: Scale=MatchLowercase
+    keep-tex: true
+    include-in-header:
+      text: |
+       \captionsetup[figure]{labelformat=empty}
+       \usepackage{pgfpages}
+       \setbeamertemplate{itemize item}[circle]
+       \setbeamertemplate{footline}[frame number]{}
+       \mode<handout>{\pgfpagesuselayout{6 on 1}[letterpaper, border shrink=8mm]}
+       \AtBeginSection{%
+          \begin{frame}
+              \tableofcontents[currentsection]
+          \end{frame}
+       }
+       \usepackage{tikz}
+       \usetikzlibrary{positioning,arrows,calc}
+       \tikzset{
+         modal/.style={>=stealth',
+           shorten >=1pt,
+           shorten <=1pt,
+           auto,
+          node distance=1.5cm,
+          label distance=2pt,
+          semithick},
+        every label/.style={phantom,align=left},
+        world/.style = {circle,draw,minimum size=0.5cm,fill=gray!15},
+        modal every node/.style={world},
+        point/.style={circle,draw,inner sep=0.5mm,fill=black},
+        phantom/.style={rectangle,inner sep=0pt,draw=none,fill=none},
+        reflexive above/.style={->,loop,looseness=7,in=60,out=120},
+        reflexive below/.style={->,loop,looseness=7,in=240,out=300},
+        reflexive left/.style={->,loop,looseness=7,in=150,out=210},
+        reflexive right/.style={->,loop,looseness=7,in=30,out=330}}
+---
+
+## Why Do Modal Logic?
+
+-   In particular, why not just use first order logic to quantify over possibilities?
+-   Instead of saying $\Box p$, say $\forall w: p(w)$ or something?
+-   This is a non-rhetorical question; in lots of situations we do say something more like $\forall w: p(w)$.
+
+## Why Do Modal Logic?
+
+Historically, four reasons.
+
+::: incremental
+1. Scepticism about the $w$, such as Prior on time.
+2. Scepticism about $p(w)$, as in worries about truth.
+3. More natural/intuitive to talk about $\Box$ than about $r$.
+4. We want to understand $\Box$, and thinking about $r$ helps us do that.
+:::
+
+## $\Diamond p \supset \Box \Diamond p$
+
+We are going to do this in K, then in K$\rho$, then in K$\rho \tau$, then in K$\rho \sigma$, then finally in K$\rho \sigma \tau$, which is equivalent to K$\upsilon$.
+
+---
+
+Start with the tableau for K.
+
+\begin{center}
+\neg($\Diamond p \supset \Box \Diamond p$), 0 \\
+$\Diamond p, 0$ \\
+$\neg \Box \Diamond p, 0$ \\
+$\Diamond \neg \Diamond p, 0$ \\
+$0r1$ \\
+$p, 1$ \\
+$0r2$ \\
+$\neg \Diamond p, 2$ \\
+$\Box \neg p, 2$
+\end{center}
+
+---
+
+Now let's extend the tableau for K$\rho$.
+
+:::: {.columns}
+
+::: {.column}
+\begin{center}
+\neg($\Diamond p \supset \Box \Diamond p$), 0 \\
+$\Diamond p, 0$ \\
+$\neg \Box \Diamond p, 0$ \\
+$\Diamond \neg \Diamond p, 0$ \\
+$0r1$ \\
+$p, 1$ \\
+$0r2$ \\
+$\neg \Diamond p, 2$ \\
+$\Box \neg p, 2$
+\end{center}
+:::
+
+::: {.column}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$\neg p, 2$
+\end{center}
+:::
+
+::::
+
+---
+
+That is also a tableau for K$\rho \tau$.
+
+:::: {.columns}
+
+::: {.column}
+\begin{center}
+\neg($\Diamond p \supset \Box \Diamond p$), 0 \\
+$\Diamond p, 0$ \\
+$\neg \Box \Diamond p, 0$ \\
+$\Diamond \neg \Diamond p, 0$ \\
+$0r1$ \\
+$p, 1$ \\
+$0r2$ \\
+$\neg \Diamond p, 2$ \\
+$\Box \neg p, 2$
+\end{center}
+:::
+
+::: {.column}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$\neg p, 2$
+\end{center}
+:::
+
+::::
+
+---
+
+To do the tableau for K$\rho \sigma$, we need a couple more lines, but it's still open.
+
+:::: {.columns}
+
+::: {.column}
+\begin{center}
+\neg($\Diamond p \supset \Box \Diamond p$), 0 \\
+$\Diamond p, 0$ \\
+$\neg \Box \Diamond p, 0$ \\
+$\Diamond \neg \Diamond p, 0$ \\
+$0r1$ \\
+$p, 1$ \\
+$0r2$ \\
+$\neg \Diamond p, 2$ \\
+$\Box \neg p, 2$
+\end{center}
+:::
+
+::: {.column}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$\neg p, 2$ \\
+$2r0$ \\
+$1r0$ \\
+$\neg p, 0$
+\end{center}
+:::
+
+::::
+
+---
+
+To do the tableau for K$\rho \sigma \tau$, we need more lines, and now it closes.
+
+:::: {.columns}
+
+::: {.column}
+\begin{center}
+\neg($\Diamond p \supset \Box \Diamond p$), 0 \\
+$\Diamond p, 0$ \\
+$\neg \Box \Diamond p, 0$ \\
+$\Diamond \neg \Diamond p, 0$ \\
+$0r1$ \\
+$p, 1$ \\
+$0r2$ \\
+$\neg \Diamond p, 2$ \\
+$\Box \neg p, 2$
+\end{center}
+:::
+
+::: {.column}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$\neg p, 2$ \\
+$2r0$ \\
+$1r0$ \\
+$\neg p, 0$ \\
+$2r1$ \\
+$\neg p, 1$ \\
+$x$
+\end{center}
+:::
+
+::::
+
+---
+
+The tableau for K$\upsilon$, is a bit simpler, because it doesn't include $r$ lines.
+
+\begin{center}
+\neg($\Diamond p \supset \Box \Diamond p$), 0 \\
+$\Diamond p, 0$ \\
+$\neg \Box \Diamond p, 0$ \\
+$\Diamond \neg \Diamond p, 0$ \\
+$p, 1$ \\
+$\neg \Diamond p, 2$ \\
+$\Box \neg p, 2$ \\
+$\neg p, 2$ \\
+$\neg p, 0$ \\
+$\neg p, 1$ \\
+$x$
+\end{center}
+
+## $\Box(\Box p \supset q) \vee \Box(\Box q \supset p)$
+
+This is not very intuitive, but it is a little interesting mathematically.
+
+- It's the **characteristic axiom** of models that are 'linear'.
+- I don't *think* I'll have time today to say what a characteristic axiom is; the priority today is getting the formalism down.
+- But hopefully we'll have some time for it next week.
+
+---
+
+Start with an open tableau in K.
+
+\begin{center}
+$\neg(\Box(\Box p \supset q) \vee \Box(\Box q \supset p)), 0$ \\
+$\neg \Box(\Box p \supset q), 0$ \\
+$\neg \Box(\Box q \supset p), 0$ \\
+$\Diamond \neg(\Box p \supset q), 0$ \\
+$\Diamond \neg(\Box q \supset p), 0$ \\
+$\neg(\Box p \supset q), 1$ \\
+$0r1$ \\
+$\neg(\Box q \supset p), 2$ \\
+$0r2$ \\
+$\Box p, 1$ \\
+$\neg q, 1$ \\
+$\Box q, 2$ \\
+$\neg p, 2$ \\
+\end{center}
+
+---
+
+Now onto K$\rho$, which is still open.
+
+:::: {.columns}
+
+::: {.column width=65%}
+\begin{center}
+$\neg(\Box(\Box p \supset q) \vee \Box(\Box q \supset p)), 0$ \\
+$\neg \Box(\Box p \supset q), 0$ \\
+$\neg \Box(\Box q \supset p), 0$ \\
+$\Diamond \neg(\Box p \supset q), 0$ \\
+$\Diamond \neg(\Box q \supset p), 0$ \\
+$\neg(\Box p \supset q), 1$ \\
+$0r1$ \\
+$\neg(\Box q \supset p), 2$ \\
+$0r2$ \\
+$\Box p, 1$ \\
+$\neg q, 1$ \\
+$\Box q, 2$ \\
+$\neg p, 2$ \\
+\end{center}
+:::
+
+::: {.column width=35%}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$p, 1$ \\
+$q, 2$
+\end{center}
+:::
+
+::::
+
+---
+
+That's also an open tableau for K$\rho \tau$.
+
+:::: {.columns}
+
+::: {.column width=65%}
+\begin{center}
+$\neg(\Box(\Box p \supset q) \vee \Box(\Box q \supset p)), 0$ \\
+$\neg \Box(\Box p \supset q), 0$ \\
+$\neg \Box(\Box q \supset p), 0$ \\
+$\Diamond \neg(\Box p \supset q), 0$ \\
+$\Diamond \neg(\Box q \supset p), 0$ \\
+$\neg(\Box p \supset q), 1$ \\
+$0r1$ \\
+$\neg(\Box q \supset p), 2$ \\
+$0r2$ \\
+$\Box p, 1$ \\
+$\neg q, 1$ \\
+$\Box q, 2$ \\
+$\neg p, 2$ \\
+\end{center}
+:::
+
+::: {.column width=35%}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$p, 1$ \\
+$q, 2$
+\end{center}
+:::
+
+::::
+
+---
+
+K$\rho \sigma$ needs a few more lines, but is still open.
+
+:::: {.columns}
+
+::: {.column width=65%}
+\begin{center}
+$\neg(\Box(\Box p \supset q) \vee \Box(\Box q \supset p)), 0$ \\
+$\neg \Box(\Box p \supset q), 0$ \\
+$\neg \Box(\Box q \supset p), 0$ \\
+$\Diamond \neg(\Box p \supset q), 0$ \\
+$\Diamond \neg(\Box q \supset p), 0$ \\
+$\neg(\Box p \supset q), 1$ \\
+$0r1$ \\
+$\neg(\Box q \supset p), 2$ \\
+$0r2$ \\
+$\Box p, 1$ \\
+$\neg q, 1$ \\
+$\Box q, 2$ \\
+$\neg p, 2$ \\
+\end{center}
+:::
+
+::: {.column width=35%}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$p, 1$ \\
+$q, 2$ \\
+$1r0$ \\
+$2r0$ \\
+$p, 0$ \\
+$q, 0$
+\end{center}
+:::
+
+::::
+
+---
+
+But K$\rho \sigma \tau$ closes
+
+:::: {.columns}
+
+::: {.column width=65%}
+\begin{center}
+$\neg(\Box(\Box p \supset q) \vee \Box(\Box q \supset p)), 0$ \\
+$\neg \Box(\Box p \supset q), 0$ \\
+$\neg \Box(\Box q \supset p), 0$ \\
+$\Diamond \neg(\Box p \supset q), 0$ \\
+$\Diamond \neg(\Box q \supset p), 0$ \\
+$\neg(\Box p \supset q), 1$ \\
+$0r1$ \\
+$\neg(\Box q \supset p), 2$ \\
+$0r2$ \\
+$\Box p, 1$ \\
+$\neg q, 1$ \\
+$\Box q, 2$ \\
+$\neg p, 2$ \\
+\end{center}
+:::
+
+::: {.column width=35%}
+\begin{center}
+$0r0$ \\
+$1r1$ \\
+$2r2$ \\
+$p, 1$ \\
+$q, 2$ \\
+$1r0$ \\
+$2r0$ \\
+$p, 0$ \\
+$q, 0$ \\
+$1r2$ \\
+$p, 2$ \\
+$x$
+\end{center}
+:::
+
+::::
+
+## $\Box p \supset \Box \Box p$
+
+Next example is this one, which is the characteristic axiom of transitive models.
+
+---
+
+Let's skip K and go straight to K$\rho$, since it's open.
+
+\begin{center}
+$\neg(\Box p \supset \Box \Box p), 0$ \\
+$\Box p, 0$ \\
+$\neg \Box \Box p, 0$ \\
+$0r0$ \\
+$p, 0$ \\
+$\Diamond \neg \Box p, 0$ \\
+$0r1$ \\
+$\neg \Box p, 1$ \\
+$p, 1$ \\
+$1r1$ \\
+$\Diamond \neg p, 1$ \\
+$1r2$ \\
+$\neg p, 2$ \\
+$2r2$
+\end{center}
+
+---
+
+It takes just a bit more work to get K$\rho \sigma$.
+
+:::: {.columns}
+
+::: {.column width=65%}
+
+\begin{center}
+$\neg(\Box p \supset \Box \Box p), 0$ \\
+$\Box p, 0$ \\
+$\neg \Box \Box p, 0$ \\
+$0r0$ \\
+$p, 0$ \\
+$\Diamond \neg \Box p, 0$ \\
+$0r1$ \\
+$\neg \Box p, 1$ \\
+$p, 1$ \\
+$1r1$ \\
+\end{center}
+
+:::
+
+::: {.column width=35%}
+
+\begin{center}
+$\Diamond \neg p, 1$ \\
+$1r2$ \\
+$\neg p, 2$ \\
+$2r2$ \\
+$\mathbf{2r1}$ \\
+$\mathbf{1r0}$ \\
+\end{center}
+
+
+:::
+
+::::
+
+I bolded the new lines, but they don't have any interesting implications.
+
+---
+
+But this closes in K$\rho \tau$, and hence in K$\rho \sigma \tau$ and in K$\upsilon$.
+
+:::: {.columns}
+
+::: {.column width=65%}
+
+\begin{center}
+$\neg(\Box p \supset \Box \Box p), 0$ \\
+$\Box p, 0$ \\
+$\neg \Box \Box p, 0$ \\
+$0r0$ \\
+$p, 0$ \\
+$\Diamond \neg \Box p, 0$ \\
+$0r1$ \\
+$\neg \Box p, 1$ \\
+$p, 1$ \\
+$1r1$ \\
+\end{center}
+
+:::
+
+::: {.column width=35%}
+
+\begin{center}
+$\Diamond \neg p, 1$ \\
+$1r2$ \\
+$\neg p, 2$ \\
+$2r2$ \\
+$\mathbf{0r2}$ \\
+$\mathbf{p, 2}$ \\
+$x$
+\end{center}
+
+
+:::
+
+::::
+
+And we get $p$ is both true and false at 2.
+
+## $\neg \Box \Diamond p$
+
+This obviously isn't a logical truth!
+
+- But the tableau for it in K$\upsilon$ is annoying.
+
+---
+
+\begin{center}
+$\neg \neg \Box \Diamond p, 0$ \\
+$\Box \Diamond p, 0$ \\
+$\Diamond p, 0$ \\
+$p, 1$ \\
+$\Diamond p, 1$ \\
+$p, 2$ \\
+$\Diamond p, 2$ \\
+$\dots$
+\end{center}
+
+A model
+
+- There are infinitely many points.
+- They can all access each other.
+- $p$ is true at all of them.
+
+
+
