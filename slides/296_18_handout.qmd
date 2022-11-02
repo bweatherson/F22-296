@@ -1,12 +1,12 @@
 ---
 title: "Honors Logic, Lecture 18 - Nature of Epistemic Logic"
 author: "Brian Weatherson"
-date: 2022-11-03
+date: 2022-11-02
 format: 
   beamer: 
 #    aspectratio: 169
     fontsize: 14pt
-#    classoption: handout
+    classoption: handout
     papersize: letter
     navigation: empty
     incremental: false
