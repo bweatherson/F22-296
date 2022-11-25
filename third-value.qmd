@@ -1,0 +1,21 @@
+So far we've assumed that every sentence is either true or false, and not both. We did make one qualification to that when we started doing modal logic, and said that sentences can be true at some worlds and false at other worlds. But still everything is, at a particular world, either true or false, and not both. There are, however, a series of reasons for rejecting this assumption. I'll start by going over four such reasons.
+
+I do want to stress that these are *reasons*, not necessarily *good reasons*. Indeed, the assumption that all sentences are true or false, and not both, is very widely shared. So most people reject these reasons. But still, they are reasons, and it's worth knowing about them.
+
+## Open Future
+
+Going back at least as far as Aristotle, many people have thought that contingent claims about the future are not either true or false. This is especially true for sentences that are about free choices about the future. The standard example here (again as far back as Aristotle) is "There will be a sea battle tomorrow". The admirals (or generals) might or might not decide in the morning whether to give battle. And saying that it is now true (or false) that there will be a sea battle might be thought to undermine their free will.
+
+## Paradoxes
+
+Let _S_ be the sentence _S is false_. Assume _S_ is true. Then what _S_ says is the case; i.e., _S_ is false. That contradicts the assumption that _S_ is true. Now assume _S_ is false. Then things are the way that _S_ says things are. That is to say, _S_ is true. This contradicts the assumption that _S_ is false.
+
+So assuming that _S_ is either true or false leads to a contradiction. So _S_ is neither true nor false. So we need a third truth value for sentences like _S_.
+
+## Nonsense
+
+Let _C_ be the sentence _Green ideas sleep furiously_. This has the syntactic form of a sentence, but maybe it doesn't really make a meaningful claim. And maybe we should say that this really is a sentence, it does have the syntactic form of one, but isn't true or false. It isn't true because green ideas are not the kind of thing that sleep furiously. But also green ideas don't sleep furiously, so it isn't false.
+
+The same kind of thing can happen with definite descriptions that are don't pick out anyone. Let _Q_ be the sentence _The (present) Queen of the US lives in Ann Arbor_. Is that true or false? Well, it isn't true; if it was I suspect I would have met her by now. But is it false? That suggests that the Queen of the US lives somewhere else, and that isn't true.
+
+So these sentences like _C_ and _Q_ seem like they are neither true nor false.
