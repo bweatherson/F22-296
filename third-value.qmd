@@ -19,3 +19,18 @@ Let _C_ be the sentence _Green ideas sleep furiously_. This has the syntactic fo
 The same kind of thing can happen with definite descriptions that are don't pick out anyone. Let _Q_ be the sentence _The (present) Queen of the US lives in Ann Arbor_. Is that true or false? Well, it isn't true; if it was I suspect I would have met her by now. But is it false? That suggests that the Queen of the US lives somewhere else, and that isn't true.
 
 So these sentences like _C_ and _Q_ seem like they are neither true nor false.
+
+## Vagueness
+
+Consider the following four claims.
+
+0. Whether someone is rich is a function of how much money they have (in some sense of money they have).
+1. Someone with no money is not rich.
+2. Giving someone who is not rich a penny does not make them rich.
+3. Jeff Bezos is rich.
+
+These seem inconsistent. Premise 2 suggests that you could take the person with no money, give them a penny over and over again roughly 10 trillion times, and they'd still not be rich, despite having as much money as Bezos. Either they are rich (contradicting 1 and 2), or they are not despite having as much money as Bezos (contradicting 0 and 3).
+
+What could have happened here? One natural thought is that the problem is that there are _borderline_ cases of richness. Some people are neither clearly rich nor clearly not rich. And the reason that premise 2 is plausible is that no penny can jump one over that borderline area. 
+
+If someone is in that borderline, the sentence _That person is rich_ is arguably neither true nor false.
