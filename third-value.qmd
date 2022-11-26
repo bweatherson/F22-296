@@ -1,3 +1,5 @@
+# Neither True Nor False
+
 So far we've assumed that every sentence is either true or false, and not both. We did make one qualification to that when we started doing modal logic, and said that sentences can be true at some worlds and false at other worlds. But still everything is, at a particular world, either true or false, and not both. There are, however, a series of reasons for rejecting this assumption. I'll start by going over four such reasons.
 
 I do want to stress that these are *reasons*, not necessarily *good reasons*. Indeed, the assumption that all sentences are true or false, and not both, is very widely shared. So most people reject these reasons. But still, they are reasons, and it's worth knowing about them.
@@ -8,11 +10,11 @@ Going back at least as far as Aristotle, many people have thought that contingen
 
 ## Paradoxes
 
-Let _S_ be the sentence _S is false_. Assume _S_ is true. Then what _S_ says is the case; i.e., _S_ is false. That contradicts the assumption that _S_ is true. Now assume _S_ is false. Then things are the way that _S_ says things are. That is to say, _S_ is true. This contradicts the assumption that _S_ is false.
+Let _L_ be the sentence _L is false_. Assume _L_ is true. Then what _L_ says is the case; i.e., _L_ is false. That contradicts the assumption that _L_ is true. Now assume _L_ is false. Then things are the way that _L_ says things are. That is to say, _L_ is true. This contradicts the assumption that _L_ is false.
 
-So assuming that _S_ is either true or false leads to a contradiction. So _S_ is neither true nor false. So we need a third truth value for sentences like _S_.
+So assuming that _L_ is either true or false leads to a contradiction. So _L_ is neither true nor false. So we need a third truth value for sentences like _L_.
 
-## Nonsense
+## Nonsense and Non-Reference
 
 Let _C_ be the sentence _Green ideas sleep furiously_. This has the syntactic form of a sentence, but maybe it doesn't really make a meaningful claim. And maybe we should say that this really is a sentence, it does have the syntactic form of one, but isn't true or false. It isn't true because green ideas are not the kind of thing that sleep furiously. But also green ideas don't sleep furiously, so it isn't false.
 
@@ -34,3 +36,108 @@ These seem inconsistent. Premise 2 suggests that you could take the person with 
 What could have happened here? One natural thought is that the problem is that there are _borderline_ cases of richness. Some people are neither clearly rich nor clearly not rich. And the reason that premise 2 is plausible is that no penny can jump one over that borderline area. 
 
 If someone is in that borderline, the sentence _That person is rich_ is arguably neither true nor false.
+
+## Four Reasons
+
+So we have four reasons to think that sentences can be neither true nor false. There are two philosophical problems, however.
+
+1. Arguably none of these are very good reasons; though in each case we could literally spend a semester (or more) on the literature on them.
+2. They are very different reasons, and the kind of non-standard logic they suggest is different in every case.
+
+We'll be mostly interested here in two.
+
+# Logics and Valuations
+
+## Valuation Functions
+
+Assume that we don't have quantifiers, names, predicates, modals, or anything else beyond the symbols from chapter one of the book. To be more precise, assume we're working in the language with the following characteristics.
+
+- There are some sentence letters, $p, q, r$, etc.
+- There are connectives $\neg$, $\wedge$, $\vee$, $\rightarrow$. We won't even use $\equiv$, and we will use $\rightarrow$ rather than $\supset$ for _if_, because we're sort of trying to capture natural language _if_.
+- The sentence letters all stand for sentences.
+- If $A, B$ are sentences, so are $\neg A, A \wedge B, A \vee B, A \rightarrow B$.
+- There are no sentences other than what are generated through those last two points.
+
+Then one can specify a logic for that language by fixing the values for the following three things.
+
+1. What the **truth-values** are.
+2. Which of those truth-values are **designated**.
+3. What the values of $\neg A, A \wedge B, A \vee B, A \rightarrow B$ are given the values of $A, B$.
+
+We then use two definitions which will be constant across all the logics we'll study the rest of the way in this course.
+
+Logical Truth
+:    A sentence is a logical truth if it gets a *designated* value no matter what value the sentence letters that make it up take. These logical truths are sometimes called *tautologies*.
+
+Validity
+:    An argument is valid if whenever its premises take a designated value, so does its conclusion.
+
+Note that how we label the values doesn't matter for the logic. It's the same logic whether you call the values True and False, or T and F, or 1 and 0. I'll mostly use numbers, because I think it makes it easier to see some patterns in what we're doing.
+
+## Classical Logic
+
+To get **classical** logic, the logic we studied back in chapter 1, you can set these values as follows. The truth values are $\{1,0\}$, and the only designated value is $1$. And the values of compound sentences are given by these rules.^[I'm going to list equations for these, rather than the tables as in the book for two reasons. One is that the book has the tables (in fact both books do), and seeing the equations is a useful comparison. The other is that the software I'm using doesn't make tables like those particularly easy to draw.]
+
+$$
+v(\neg A) = 1 - v(A) \\
+v(A \wedge B) = min(v(A), v(B)) \\
+v(A \vee B) = max(v(A), v(B)) \\
+v(A \rightarrow B) = v(\neg A \vee B) = min(1, 1 - v(A) + v(B)) 
+$$
+
+I've done two definitions for $\rightarrow$ which are equivalent in this setting because they very soon will become not equivalent.
+
+It's not much work to check given these definitions that the logical truths, and the validities, are just the ones we covered in chapter 1. Indeed, the definitions we've used are pretty similar to the definitions in chapter 1. But let's note one special case. Consider the sentence $p \vee \neg p$. There is only one sentence letter in this, $p$, and there are only two values in the logic, $1, 0$, so there are only two cases to check. If $v(p) = 1$, then the maximum of $v(p), v(\neg p)$ will be 1, so v(p \vee \neg p)$ will be 1. If If $v(p) = 0$, then $v(\neg p) = 1$, so again the maximum of $v(p), v(\neg p)$ will be 1, so v(p \vee \neg p)$ will be 1. Either way, $v(p \vee \neg p) = 1$, so $p \vee \neg p$ is a logical truth *in this logic*.
+
+## Strong Kleene Logic
+
+The first **non-classical** logic we'll look at is called the Strong Kleene logic. It's named after Stephen Kleene (1909-1994, pronounced Klay-nee), a mathematician who spent most of his career at Wisconsin-Madison, and developed a number of key concepts in theoretical computer science. (He also apparently invented regular expressions, so even if you haven't heard his name, you've probably used his work.)
+
+- The logic has three truth values: $1, ½, 0$.
+- The only designated value is $1$.
+- The rules for the connectives are mostly just like classical logic.
+
+$$
+v(\neg A) = 1 - v(A) \\
+v(A \wedge B) = min(v(A), v(B)) \\
+v(A \vee B) = max(v(A), v(B)) \\
+v(A \rightarrow B) = v(\neg A \vee B)
+$$
+
+The only change I had to make was to only use one of the two definitions for $\rightarrow$, since the two definitions are not equivalent when v(A) = v(B) = ½.
+
+If all the sentence letters in a longer sentence get value ½, so does the whole sentence. You can check this by going through the four rules. In each case, if all the inputs are ½, so is the output. And ½ is not a designated value. So there are *no logical truths* in this logic.
+
+Despite this, there are validities in the logic. In any logic defined using designated values, $A \vdash A$ will be a logical truth. Whenever $A$ is designated, $A$ is designated. But there are more substantive validities in this logic, such as $A, A \rightarrow B \vdash B$. Note that there are nine cases to check to see that this works, but in all nine cases, either one of the premises is not designated, or the conclusion is designated.
+
+The Strong Kleene logic is plausibly an account of the paradoxes. Let's not start with the paradoxical sentence _L_, the so-called *liar sentence*, but instead with _T_, the *truth-teller sentence*. _T_ is the sentence _T is true_. It is consistent to say that it is true; then things are just the way it says they are. But it is also consistent to say that it is false. If _T_ is false, then things are not the way _T_ says they are, so _T_ is false. That's consistent as well. Nothing seems to settle whether _T_ is true or false.
+
+Interpret $1$ as meaning that the world settles that the sentence is true, $0$ as that the world settles that the sentence is false, and ½ as that the world does not settle the sentence. If you understand *settling* in terms of a recursive process, the last one will be a situation where the process does not terminate. On that understanding, it makes sense to think that the value of _T_ is ½; if you try to work out the value for _T_, you'll have to first work out the value for _T_, and you'll end up in a loop.
+
+And, crucially, the same thing will go for _L_. What we want is that _L_ takes the opposite value to what it itself takes. On the one hand, that looks impossible. But more importantly, there isn't a process for working that out; we don't define the value for _L_ in terms of something simpler. So it makes sense that our theory gives it the _unsettled_ value ½.
+
+Kleene did a lot of work on recursion theory, and developed this logic in part for this purpose, so this isn't entirely a made-up, just-so, story about the logic. And Saul Kripke (who we met in the context of modal logic) developed a theory of the semantic paradoxes that used the Strong Kleene logic in just this way.
+
+## Łukasiewicz Logic
+
+Jan Łukasiewicz (1878-1956, pronounced very roughly Wook-a-say-vich) was a Polish logician who is most famous for his development of Polish notation.^[We're not going into this. It was a way of writing arbitrarily complex logical/mathematical expressions without using brackets. On the one hand, it massively increased the range of things one could write in text-only systems, and produced much more compact expressions than standard notation. On the other hand, unless you worked in it for years, it was impossible to use intuitively. For both these reasons, it became very important in computing, and was the basis of some important early programming languages.] He was one of many refugees from central Europe in the 1930s who became central to the development of English-language philosophy after the war. Most of these refugees ended up in America, and several in Britain, but Łukasiewicz landed in Dublin.^[According to Wikipedia, this was at the invitation of the Irish President, though the sourcing on that seems a little thin to me.]
+
+Łukasiewicz enters our story because of his interest in the open future. He thought that we needed a third truth value to account for sentences like _There will be a sea battle tomorrow_. So he developed the following logic.
+
+- The logic has three truth values: $1, ½, 0$.
+- The only designated value is $1$.
+- The rules for the connectives are mostly just like classical logic.
+
+$$
+v(\neg A) = 1 - v(A) \\
+v(A \wedge B) = min(v(A), v(B)) \\
+v(A \vee B) = max(v(A), v(B)) \\
+v(A \rightarrow B) = min(1, 1 - v(A) + v(B)) 
+$$
+
+The only difference between this and the Strong Kleene logic is in the last clause. We've used the other of the two definitions of $\rightarrow$. The only difference is in what happens when both $A$ and $B$ are ½. In Strong Kleene, then $A \rightarrow B$ is ½. In Łukasiewicz, in that case $A \rightarrow B$ is $1$.
+
+This in turn makes a huge difference. It means that in Łukasiewicz, there *are* logical truths. They all involve $\rightarrow$. In any sentence that does not have $\rightarrow$, if all the sentence letters get value ½, so does the whole. But the sentence $p \rightarrow p$ gets value 1 no matter what the value of $p$, so it is a logical truth. This makes a certain amount of sense given Łukasiewicz's interests. We might think that it is uncertain whether there will be a sea battle tomorrow, and hence uncertain whether any ships will be sunk tomorrow, but certain that if there is a sea battle tomorrow, some ships will be sunk tomorrow.
+
+
+
