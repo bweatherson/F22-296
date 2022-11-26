@@ -1,3 +1,26 @@
+---
+title: "Three-Valued Logic"
+author: "Phil 296 - November 28"
+format:
+  pdf:
+    documentclass: article
+    md-extensions: +compact_definition_lists
+    keep-tex: true
+    block-headings: false
+    pdf-engine: xelatex
+    include-in-header: 
+      - packages.tex
+  html:
+    minimal: true
+geometry: margin=1.2in
+#mainfont: SF Pro Thin
+#mainfontoptions: 
+# - BoldFont = SF Pro Rounded Semibold
+# - Scale = MatchLowercase
+#mathfont: Fira Math
+editor: source
+---
+
 # Neither True Nor False
 
 So far we've assumed that every sentence is either true or false, and not both. We did make one qualification to that when we started doing modal logic, and said that sentences can be true at some worlds and false at other worlds. But still everything is, at a particular world, either true or false, and not both. There are, however, a series of reasons for rejecting this assumption. I'll start by going over four such reasons.
@@ -118,6 +141,8 @@ And, crucially, the same thing will go for _L_. What we want is that _L_ takes t
 
 Kleene did a lot of work on recursion theory, and developed this logic in part for this purpose, so this isn't entirely a made-up, just-so, story about the logic. And Saul Kripke (who we met in the context of modal logic) developed a theory of the semantic paradoxes that used the Strong Kleene logic in just this way.
 
+Even though there are no logical truths in the Strong Kleene logic, we can recover something like classical logic in it. Let $A$ be any sentence that is a logical truth in classical logic, and let $p_1, \dots, p_n$ be the sentence letters in it. Then the argument $p_1 \vee \neg p_1, \dots, p_n \vee \neg p_n \vdash A$ will be a logical truth. The point of the premises here is just to specify that none of the sentence letters take the value ½. And when that happens, we're back in classical logic. In computing terms, when we know that every process will halt, we can use classical logic, but when we don't know that, we have to be more careful.
+
 ## Łukasiewicz Logic
 
 Jan Łukasiewicz (1878-1956, pronounced very roughly Wook-a-say-vich) was a Polish logician who is most famous for his development of Polish notation.^[We're not going into this. It was a way of writing arbitrarily complex logical/mathematical expressions without using brackets. On the one hand, it massively increased the range of things one could write in text-only systems, and produced much more compact expressions than standard notation. On the other hand, unless you worked in it for years, it was impossible to use intuitively. For both these reasons, it became very important in computing, and was the basis of some important early programming languages.] He was one of many refugees from central Europe in the 1930s who became central to the development of English-language philosophy after the war. Most of these refugees ended up in America, and several in Britain, but Łukasiewicz landed in Dublin.^[According to Wikipedia, this was at the invitation of the Irish President, though the sourcing on that seems a little thin to me.]
@@ -138,6 +163,20 @@ $$
 The only difference between this and the Strong Kleene logic is in the last clause. We've used the other of the two definitions of $\rightarrow$. The only difference is in what happens when both $A$ and $B$ are ½. In Strong Kleene, then $A \rightarrow B$ is ½. In Łukasiewicz, in that case $A \rightarrow B$ is $1$.
 
 This in turn makes a huge difference. It means that in Łukasiewicz, there *are* logical truths. They all involve $\rightarrow$. In any sentence that does not have $\rightarrow$, if all the sentence letters get value ½, so does the whole. But the sentence $p \rightarrow p$ gets value 1 no matter what the value of $p$, so it is a logical truth. This makes a certain amount of sense given Łukasiewicz's interests. We might think that it is uncertain whether there will be a sea battle tomorrow, and hence uncertain whether any ships will be sunk tomorrow, but certain that if there is a sea battle tomorrow, some ships will be sunk tomorrow.
+
+In classical logic, the following two things are equivalent.
+
+- $A \rightarrow B$ is a logical truth.
+- $A \vdash B$ is a valid argument.
+
+In Strong Kleene these can't be equivalent, since there are no logical truths, but there are valid arguments. You might hope that this change would mean they would be back to being equivalent in Łukasiewicz. But they are not. Here is a counterexample:
+
+- $(p \wedge \neg p) \rightarrow q$ is **not** a logical truth. (Why not?!)
+- $p \wedge \neg p \vdash q$ **is** a valid argument. (Why?!)
+
+Is this a bad thing for Łukasiewicz logic? It does look a bit weird to me, but maybe when we are working with the open future, weird things will happen.
+
+That's enough for today probably; next time we'll look at these logics in more detail, and go over some other three valued logics.
 
 
 
