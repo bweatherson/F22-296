@@ -1,0 +1,539 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1.2in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Three-Valued Logic},
+  pdfauthor={Phil 296 - November 28},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Three-Valued Logic}
+\author{Phil 296 - November 28}
+\date{}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
+
+\hypertarget{neither-true-nor-false}{%
+\section{Neither True Nor False}\label{neither-true-nor-false}}
+
+So far we've assumed that every sentence is either true or false, and
+not both. We did make one qualification to that when we started doing
+modal logic, and said that sentences can be true at some worlds and
+false at other worlds. But still everything is, at a particular world,
+either true or false, and not both. There are, however, a series of
+reasons for rejecting this assumption. I'll start by going over four
+such reasons.
+
+I do want to stress that these are \emph{reasons}, not necessarily
+\emph{good reasons}. Indeed, the assumption that all sentences are true
+or false, and not both, is very widely shared. So most people reject
+these reasons. But still, they are reasons, and it's worth knowing about
+them.
+
+\hypertarget{open-future}{%
+\subsection{Open Future}\label{open-future}}
+
+Going back at least as far as Aristotle, many people have thought that
+contingent claims about the future are not either true or false. This is
+especially true for sentences that are about free choices about the
+future. The standard example here (again as far back as Aristotle) is
+``There will be a sea battle tomorrow''. The admirals (or generals)
+might or might not decide in the morning whether to give battle. And
+saying that it is now true (or false) that there will be a sea battle
+might be thought to undermine their free will.
+
+\hypertarget{paradoxes}{%
+\subsection{Paradoxes}\label{paradoxes}}
+
+Let \emph{L} be the sentence \emph{L is false}. Assume \emph{L} is true.
+Then what \emph{L} says is the case; i.e., \emph{L} is false. That
+contradicts the assumption that \emph{L} is true. Now assume \emph{L} is
+false. Then things are the way that \emph{L} says things are. That is to
+say, \emph{L} is true. This contradicts the assumption that \emph{L} is
+false.
+
+So assuming that \emph{L} is either true or false leads to a
+contradiction. So \emph{L} is neither true nor false. So we need a third
+truth value for sentences like \emph{L}.
+
+\hypertarget{nonsense-and-non-reference}{%
+\subsection{Nonsense and
+Non-Reference}\label{nonsense-and-non-reference}}
+
+Let \emph{C} be the sentence \emph{Green ideas sleep furiously}. This
+has the syntactic form of a sentence, but maybe it doesn't really make a
+meaningful claim. And maybe we should say that this really is a
+sentence, it does have the syntactic form of one, but isn't true or
+false. It isn't true because green ideas are not the kind of thing that
+sleep furiously. But also green ideas don't sleep furiously, so it isn't
+false.
+
+The same kind of thing can happen with definite descriptions that are
+don't pick out anyone. Let \emph{Q} be the sentence \emph{The (present)
+Queen of the US lives in Ann Arbor}. Is that true or false? Well, it
+isn't true; if it was I suspect I would have met her by now. But is it
+false? That suggests that the Queen of the US lives somewhere else, and
+that isn't true.
+
+So these sentences like \emph{C} and \emph{Q} seem like they are neither
+true nor false.
+
+\hypertarget{vagueness}{%
+\subsection{Vagueness}\label{vagueness}}
+
+Consider the following four claims.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{-1}
+\tightlist
+\item
+  Whether someone is rich is a function of how much money they have (in
+  some sense of money they have).
+\item
+  Someone with no money is not rich.
+\item
+  Giving someone who is not rich a penny does not make them rich.
+\item
+  Jeff Bezos is rich.
+\end{enumerate}
+
+These seem inconsistent. Premise 2 suggests that you could take the
+person with no money, give them a penny over and over again roughly 10
+trillion times, and they'd still not be rich, despite having as much
+money as Bezos. Either they are rich (contradicting 1 and 2), or they
+are not despite having as much money as Bezos (contradicting 0 and 3).
+
+What could have happened here? One natural thought is that the problem
+is that there are \emph{borderline} cases of richness. Some people are
+neither clearly rich nor clearly not rich. And the reason that premise 2
+is plausible is that no penny can jump one over that borderline area.
+
+If someone is in that borderline, the sentence \emph{That person is
+rich} is arguably neither true nor false.
+
+\hypertarget{four-reasons}{%
+\subsection{Four Reasons}\label{four-reasons}}
+
+So we have four reasons to think that sentences can be neither true nor
+false. There are two philosophical problems, however.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Arguably none of these are very good reasons; though in each case we
+  could literally spend a semester (or more) on the literature on them.
+\item
+  They are very different reasons, and the kind of non-standard logic
+  they suggest is different in every case.
+\end{enumerate}
+
+We'll be mostly interested here in two.
+
+\hypertarget{logics-and-valuations}{%
+\section{Logics and Valuations}\label{logics-and-valuations}}
+
+\hypertarget{valuation-functions}{%
+\subsection{Valuation Functions}\label{valuation-functions}}
+
+Assume that we don't have quantifiers, names, predicates, modals, or
+anything else beyond the symbols from chapter one of the book. To be
+more precise, assume we're working in the language with the following
+characteristics.
+
+\begin{itemize}
+\tightlist
+\item
+  There are some sentence letters, \(p, q, r\), etc.
+\item
+  There are connectives \(\neg\), \(\wedge\), \(\vee\), \(\rightarrow\).
+  We won't even use \(\equiv\), and we will use \(\rightarrow\) rather
+  than \(\supset\) for \emph{if}, because we're sort of trying to
+  capture natural language \emph{if}.
+\item
+  The sentence letters all stand for sentences.
+\item
+  If \(A, B\) are sentences, so are
+  \(\neg A, A \wedge B, A \vee B, A \rightarrow B\).
+\item
+  There are no sentences other than what are generated through those
+  last two points.
+\end{itemize}
+
+Then one can specify a logic for that language by fixing the values for
+the following three things.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What the \textbf{truth-values} are.
+\item
+  Which of those truth-values are \textbf{designated}.
+\item
+  What the values of \(\neg A, A \wedge B, A \vee B, A \rightarrow B\)
+  are given the values of \(A, B\).
+\end{enumerate}
+
+We then use two definitions which will be constant across all the logics
+we'll study the rest of the way in this course.
+
+\begin{description}
+\tightlist
+\item[Logical Truth]
+A sentence is a logical truth if it gets a \emph{designated} value no
+matter what value the sentence letters that make it up take. These
+logical truths are sometimes called \emph{tautologies}.
+\item[Validity]
+An argument is valid if whenever its premises take a designated value,
+so does its conclusion.
+\end{description}
+
+Note that how we label the values doesn't matter for the logic. It's the
+same logic whether you call the values True and False, or T and F, or 1
+and 0. I'll mostly use numbers, because I think it makes it easier to
+see some patterns in what we're doing.
+
+\hypertarget{classical-logic}{%
+\subsection{Classical Logic}\label{classical-logic}}
+
+To get \textbf{classical} logic, the logic we studied back in chapter 1,
+you can set these values as follows. The truth values are \(\{1,0\}\),
+and the only designated value is \(1\). And the values of compound
+sentences are given by these rules.\footnote{I'm going to list equations
+  for these, rather than the tables as in the book for two reasons. One
+  is that the book has the tables (in fact both books do), and seeing
+  the equations is a useful comparison. The other is that the software
+  I'm using doesn't make tables like those particularly easy to draw.}
+
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= v(\neg A \vee B) = min(1, 1 - v(A) + v(B)) 
+\end{align*}
+
+I've done two definitions for \(\rightarrow\) which are equivalent in
+this setting because they very soon will become not equivalent.
+
+It's not much work to check given these definitions that the logical
+truths, and the validities, are just the ones we covered in chapter 1.
+Indeed, the definitions we've used are pretty similar to the definitions
+in chapter 1. But let's note one special case. Consider the sentence
+\(p \vee \neg p\). There is only one sentence letter in this, \(p\), and
+there are only two values in the logic, \(1, 0\), so there are only two
+cases to check. If \(v(p) = 1\), then the maximum of \(v(p), v(\neg p)\)
+will be 1, so v(p \vee \neg p)\$ will be 1. If If \(v(p) = 0\), then
+\(v(\neg p) = 1\), so again the maximum of \(v(p), v(\neg p)\) will be
+1, so v(p \vee \neg p)\$ will be 1. Either way,
+\(v(p \vee \neg p) = 1\), so \(p \vee \neg p\) is a logical truth
+\emph{in this logic}.
+
+\hypertarget{strong-kleene-logic}{%
+\subsection{Strong Kleene Logic}\label{strong-kleene-logic}}
+
+The first \textbf{non-classical} logic we'll look at is called the
+Strong Kleene logic. It's named after Stephen Kleene (1909-1994,
+pronounced Klay-nee), a mathematician who spent most of his career at
+Wisconsin-Madison, and developed a number of key concepts in theoretical
+computer science. (He also apparently invented regular expressions, so
+even if you haven't heard his name, you've probably used his work.)
+
+\begin{itemize}
+\tightlist
+\item
+  The logic has three truth values: \(1, ½, 0\).
+\item
+  The only designated value is \(1\).
+\item
+  The rules for the connectives are mostly just like classical logic.
+\end{itemize}
+
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= v(\neg A \vee B)
+\end{align*}
+
+The only change I had to make was to only use one of the two definitions
+for \(\rightarrow\), since the two definitions are not equivalent when
+v(A) = v(B) = ½.
+
+If all the sentence letters in a longer sentence get value ½, so does
+the whole sentence. You can check this by going through the four rules.
+In each case, if all the inputs are ½, so is the output. And ½ is not a
+designated value. So there are \emph{no logical truths} in this logic.
+
+Despite this, there are validities in the logic. In any logic defined
+using designated values, \(A \vdash A\) will be a logical truth.
+Whenever \(A\) is designated, \(A\) is designated. But there are more
+substantive validities in this logic, such as
+\(A, A \rightarrow B \vdash B\). Note that there are nine cases to check
+to see that this works, but in all nine cases, either one of the
+premises is not designated, or the conclusion is designated.
+
+The Strong Kleene logic is plausibly an account of the paradoxes. Let's
+not start with the paradoxical sentence \emph{L}, the so-called
+\emph{liar sentence}, but instead with \emph{T}, the \emph{truth-teller
+sentence}. \emph{T} is the sentence \emph{T is true}. It is consistent
+to say that it is true; then things are just the way it says they are.
+But it is also consistent to say that it is false. If \emph{T} is false,
+then things are not the way \emph{T} says they are, so \emph{T} is
+false. That's consistent as well. Nothing seems to settle whether
+\emph{T} is true or false.
+
+Interpret \(1\) as meaning that the world settles that the sentence is
+true, \(0\) as that the world settles that the sentence is false, and ½
+as that the world does not settle the sentence. If you understand
+\emph{settling} in terms of a recursive process, the last one will be a
+situation where the process does not terminate. On that understanding,
+it makes sense to think that the value of \emph{T} is ½; if you try to
+work out the value for \emph{T}, you'll have to first work out the value
+for \emph{T}, and you'll end up in a loop.
+
+And, crucially, the same thing will go for \emph{L}. What we want is
+that \emph{L} takes the opposite value to what it itself takes. On the
+one hand, that looks impossible. But more importantly, there isn't a
+process for working that out; we don't define the value for \emph{L} in
+terms of something simpler. So it makes sense that our theory gives it
+the \emph{unsettled} value ½.
+
+Kleene did a lot of work on recursion theory, and developed this logic
+in part for this purpose, so this isn't entirely a made-up, just-so,
+story about the logic. And Saul Kripke (who we met in the context of
+modal logic) developed a theory of the semantic paradoxes that used the
+Strong Kleene logic in just this way.
+
+Even though there are no logical truths in the Strong Kleene logic, we
+can recover something like classical logic in it. Let \(A\) be any
+sentence that is a logical truth in classical logic, and let
+\(p_1, \dots, p_n\) be the sentence letters in it. Then the argument
+\(p_1 \vee \neg p_1, \dots, p_n \vee \neg p_n \vdash A\) will be a
+logical truth. The point of the premises here is just to specify that
+none of the sentence letters take the value ½. And when that happens,
+we're back in classical logic. In computing terms, when we know that
+every process will halt, we can use classical logic, but when we don't
+know that, we have to be more careful.
+
+\hypertarget{ux142ukasiewicz-logic}{%
+\subsection{Łukasiewicz Logic}\label{ux142ukasiewicz-logic}}
+
+Jan Łukasiewicz (1878-1956, pronounced very roughly Wook-a-say-vich) was
+a Polish logician who is most famous for his development of Polish
+notation.\footnote{We're not going into this. It was a way of writing
+  arbitrarily complex logical/mathematical expressions without using
+  brackets. On the one hand, it massively increased the range of things
+  one could write in text-only systems, and produced much more compact
+  expressions than standard notation. On the other hand, unless you
+  worked in it for years, it was impossible to use intuitively. For both
+  these reasons, it became very important in computing, and was the
+  basis of some important early programming languages.} He was one of
+many refugees from central Europe in the 1930s who became central to the
+development of English-language philosophy after the war. Most of these
+refugees ended up in America, and several in Britain, but Łukasiewicz
+landed in Dublin.\footnote{According to Wikipedia, this was at the
+  invitation of the Irish President, though the sourcing on that seems a
+  little thin to me.}
+
+Łukasiewicz enters our story because of his interest in the open future.
+He thought that we needed a third truth value to account for sentences
+like \emph{There will be a sea battle tomorrow}. So he developed the
+following logic.
+
+\begin{itemize}
+\tightlist
+\item
+  The logic has three truth values: \(1, ½, 0\).
+\item
+  The only designated value is \(1\).
+\item
+  The rules for the connectives are mostly just like classical logic.
+\end{itemize}
+
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= min(1, 1 - v(A) + v(B)) 
+\end{align*}
+
+The only difference between this and the Strong Kleene logic is in the
+last clause. We've used the other of the two definitions of
+\(\rightarrow\). The only difference is in what happens when both \(A\)
+and \(B\) are ½. In Strong Kleene, then \(A \rightarrow B\) is ½. In
+Łukasiewicz, in that case \(A \rightarrow B\) is \(1\).
+
+This in turn makes a huge difference. It means that in Łukasiewicz,
+there \emph{are} logical truths. They all involve \(\rightarrow\). In
+any sentence that does not have \(\rightarrow\), if all the sentence
+letters get value ½, so does the whole. But the sentence
+\(p \rightarrow p\) gets value 1 no matter what the value of \(p\), so
+it is a logical truth. This makes a certain amount of sense given
+Łukasiewicz's interests. We might think that it is uncertain whether
+there will be a sea battle tomorrow, and hence uncertain whether any
+ships will be sunk tomorrow, but certain that if there is a sea battle
+tomorrow, some ships will be sunk tomorrow.
+
+In classical logic, the following two things are equivalent.
+
+\begin{itemize}
+\tightlist
+\item
+  \(A \rightarrow B\) is a logical truth.
+\item
+  \(A \vdash B\) is a valid argument.
+\end{itemize}
+
+In Strong Kleene these can't be equivalent, since there are no logical
+truths, but there are valid arguments. You might hope that this change
+would mean they would be back to being equivalent in Łukasiewicz. But
+they are not. Here is a counterexample:
+
+\begin{itemize}
+\tightlist
+\item
+  \((p \wedge \neg p) \rightarrow q\) is \textbf{not} a logical truth.
+  (Why not?!)
+\item
+  \(p \wedge \neg p \vdash q\) \textbf{is} a valid argument. (Why?!)
+\end{itemize}
+
+Is this a bad thing for Łukasiewicz logic? It does look a bit weird to
+me, but maybe when we are working with the open future, weird things
+will happen.
+
+That's enough for today probably; next time we'll look at these logics
+in more detail, and go over some other three valued logics.
+
+
+
+\end{document}

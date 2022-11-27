@@ -101,12 +101,12 @@ Note that how we label the values doesn't matter for the logic. It's the same lo
 
 To get **classical** logic, the logic we studied back in chapter 1, you can set these values as follows. The truth values are $\{1,0\}$, and the only designated value is $1$. And the values of compound sentences are given by these rules.^[I'm going to list equations for these, rather than the tables as in the book for two reasons. One is that the book has the tables (in fact both books do), and seeing the equations is a useful comparison. The other is that the software I'm using doesn't make tables like those particularly easy to draw.]
 
-$$
-v(\neg A) = 1 - v(A) \\
-v(A \wedge B) = min(v(A), v(B)) \\
-v(A \vee B) = max(v(A), v(B)) \\
-v(A \rightarrow B) = v(\neg A \vee B) = min(1, 1 - v(A) + v(B)) 
-$$
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= v(\neg A \vee B) = min(1, 1 - v(A) + v(B)) 
+\end{align*}
 
 I've done two definitions for $\rightarrow$ which are equivalent in this setting because they very soon will become not equivalent.
 
@@ -120,12 +120,12 @@ The first **non-classical** logic we'll look at is called the Strong Kleene logi
 - The only designated value is $1$.
 - The rules for the connectives are mostly just like classical logic.
 
-$$
-v(\neg A) = 1 - v(A) \\
-v(A \wedge B) = min(v(A), v(B)) \\
-v(A \vee B) = max(v(A), v(B)) \\
-v(A \rightarrow B) = v(\neg A \vee B)
-$$
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= v(\neg A \vee B)
+\end{align*}
 
 The only change I had to make was to only use one of the two definitions for $\rightarrow$, since the two definitions are not equivalent when v(A) = v(B) = ½.
 
@@ -153,12 +153,12 @@ Jan Łukasiewicz (1878-1956, pronounced very roughly Wook-a-say-vich) was a Poli
 - The only designated value is $1$.
 - The rules for the connectives are mostly just like classical logic.
 
-$$
-v(\neg A) = 1 - v(A) \\
-v(A \wedge B) = min(v(A), v(B)) \\
-v(A \vee B) = max(v(A), v(B)) \\
-v(A \rightarrow B) = min(1, 1 - v(A) + v(B)) 
-$$
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= min(1, 1 - v(A) + v(B)) 
+\end{align*}
 
 The only difference between this and the Strong Kleene logic is in the last clause. We've used the other of the two definitions of $\rightarrow$. The only difference is in what happens when both $A$ and $B$ are ½. In Strong Kleene, then $A \rightarrow B$ is ½. In Łukasiewicz, in that case $A \rightarrow B$ is $1$.
 
