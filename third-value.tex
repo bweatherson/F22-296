@@ -138,7 +138,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, breakable, frame hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \hypertarget{neither-true-nor-false}{%
 \section{Neither True Nor False}\label{neither-true-nor-false}}
@@ -351,9 +351,9 @@ in chapter 1. But let's note one special case. Consider the sentence
 \(p \vee \neg p\). There is only one sentence letter in this, \(p\), and
 there are only two values in the logic, \(1, 0\), so there are only two
 cases to check. If \(v(p) = 1\), then the maximum of \(v(p), v(\neg p)\)
-will be 1, so v(p \vee \neg p)\$ will be 1. If If \(v(p) = 0\), then
+will be 1, so \(v(p \vee \neg p)\) will be 1. If If \(v(p) = 0\), then
 \(v(\neg p) = 1\), so again the maximum of \(v(p), v(\neg p)\) will be
-1, so v(p \vee \neg p)\$ will be 1. Either way,
+1, so \(v(p \vee \neg p)\) will be 1. Either way,
 \(v(p \vee \neg p) = 1\), so \(p \vee \neg p\) is a logical truth
 \emph{in this logic}.
 
