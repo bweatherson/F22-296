@@ -176,7 +176,125 @@ In Strong Kleene these can't be equivalent, since there are no logical truths, b
 
 Is this a bad thing for Łukasiewicz logic? It does look a bit weird to me, but maybe when we are working with the open future, weird things will happen.
 
-That's enough for today probably; next time we'll look at these logics in more detail, and go over some other three valued logics.
 
+## Weak Kleene Logic
 
+Given we had a Strong Kleene logic, you might be expecting a Weak Kleene logic, and you'd be right. The tables for it are in both of the books, so I won't repeat them here, but I will give a short description of them.
 
+- If either $A$ or $B$ get value ½, any combination of them does as well.
+- If neither $A$ nor $B$ get value ½, then the classical truth tables apply.
+
+On this picture, the value ½ is 'infectious'; if it turns up at any part of the sentence, it spreads to the whole. This fits with a perhaps more realistic picture of recursion. Remember I motivated the Strong Kleene logic by sayingt it was a picture of how recursive assessment of truth might work: 1 means that the sentence resolves to true, 0 means that it resolves to false, and ½ means that it does not resolve. Well, I also had to add that it was a clever recursion process, that halted when it saw, for instance, that a disjunction had a true disjunct. Imagine that our recursion process wasn't quite so clever, and it does not halt until it has worked out the truth values of all parts of the sentence. Then you'll get the Weak Kleene tables; any sentence with a part that does not resolve will not resolve, and will have value ½.
+
+This is apparently a useful logic to use for various mathematical purposes, but it's really not much use to us. It doesn't even let you make simple inferences like $A \vdash A \vee B$, since this fails when $A$ is 1 and $B$ is ½. So I'm not going to talk about it much more, but I wanted to make sure we knew it existed.
+
+I'm going to spend a bit of time now working out what we can prove and not prove in these three logics. We'll eventually want to come back to logics that allow for even more values, but these three-valued logics will be enough to get us started
+
+# Working Out What's Valid
+
+## Brute Force
+
+In the Strong Kleene and Łukasiewicz logics, is this valid:
+
+- $A \wedge (B \vee C) \vdash (A \wedge B) \vee (A \wedge C)$
+
+Let's solve this by brute force, with a table.
+
+```{r echo=FALSE,message=FALSE}
+require(readxl)
+require(tidyverse)
+three_val_distribution <- read_excel("three-val-distribution.xlsx") %>% 
+  mutate(across(everything(), as.character))
+knitr::kable(three_val_distribution, align = 'c')
+```
+
+And it looks like it is. We just need the one table for the two logics, because the symbol $\rightarrow$ doesn't appear, and it's the only difference between the logics. But it's a big table. In three valued logic, a table for an argument with $k$ sentence letters has $3^k$ rows. So even adding a fourth sentence letter would take us to 81 rows. I built this table with a little bit of code, but that's still some work. 
+
+But brute force isn't too bad for some things. Let's look at a simpler argument. Is this valid in the logics we're looking at?
+
+- $A \vee B \vdash \neg B \rightarrow A$
+
+First we'll do it in Strong Kleene:
+
+```{r echo=FALSE,message=FALSE}
+require(readxl)
+require(tidyverse)
+three_val_distribution <- read_excel("three-val-sk-1.xlsx") %>% 
+  mutate(across(everything(), as.character))
+knitr::kable(three_val_distribution, align = 'c')
+```
+
+That looks good. In fact, it loks like the two are identical. We'll come back to this point. What about in Łukasiewicz?
+
+```{r echo=FALSE,message=FALSE}
+require(readxl)
+require(tidyverse)
+three_val_distribution <- read_excel("three-val-l-1.xlsx") %>% 
+  mutate(across(everything(), as.character))
+knitr::kable(three_val_distribution, align = 'c')
+```
+
+Again, it is fine. Every row where the premise is 1, the conclusion is 1. Now think about the reverse implication.
+
+- $\neg B \rightarrow A \vdash A \vee B$
+
+We have all the tables we need for that; they are just back-to-front. But we can still read them. What do they say? Well, in Strong Kleene every line where the premises are 1, so is the conclusion. But in Łukasiewicz, if both A and B are ½, the premise gets value 1, and the conclusion gets value ½. So the argument is _invalid_.
+
+So just to recap, that's how we solve things by brute force.
+
+- Build a table with $3^k$ lines, where $k$ is the number of sentence letters. This might be easiest in Excel/Google Sheets/some coding language, because each of the sentences can be computed via a formula. (I was using Excel, but there are surely more efficient ways to do it.)
+- Is there a row where all the premises get designated values and the conclusion gets an undesignated value?
+- If so, the argument is invalid.
+- If not, it is valid.
+
+In the case of checking for a logical truth, the process is the same, but instead we just ask does the sentence take a designated value in every row. If so, it is a logical truth. If not, it is not.
+
+## Search Methods
+
+Brute force has its limits. Think about whether this sentence is a logical truth in either of these logics.
+
+- $((p \rightarrow q) \vee (q \rightarrow r)) \vee (r \rightarrow s)$
+
+A table for that would have 81 rows, and it wouldn't even print with the format I'm using. But we can work out whether it is a logical truth in the two logics somewhat more easily.
+
+It is not a logical truth in Strong Kleene for the same reason that there are literally no logical truths in Strong Kleene. Consider the row where all four sentences get value ½. In that row, every disjunct will get value ½, so the whole sentence will get value ½. And ½ is not designated.
+
+What about in Łukasiewicz? Well, what would it take for the sentence to not have value 1. In Łukasiewicz (and in Strong Kleene), $\vee$ is a maximum operator. If either side of $A \vee B$ is 1, the whole is 1. So a row where the sentence gets a value other than 1 has to be a row where all three of $p \rightarrow q$, $q \rightarrow r$ and $r \rightarrow s$ get values less than 1. And when does a conditional $A \rightarrow B$ get value less than 1 in Łukasiewicz? Answer: when and only $v(A) > v(B)$. So for there to be a row where this sentence fails to take value 1, the following would all have to be true.
+
+1. $v(p) > v(q)$
+2. $v(q) > v(r)$
+3. $v(r) > v(s)$
+
+Is that possible? No it isn't; there aren't enough values! The first implies that $v(q)$ is at most ½. That plus 2 implies that $v(r)$ is 0. And that's inconsistent with 3. So in Łukasiewicz, this weird looking thing is in fact a logical truth.
+
+Let's end with one more. Is this valid in either of the two logics?
+
+$p \rightarrow (q \wedge \neg q) \vdash \neg p$
+
+In Strong Kleene, we can reason as follows. The consequent of the premise, $q \wedge \neg q$, has value either 0 or ½. A conditional with a consequent whose value is not 1 is only value 1 when the antecedent has value 0. So $p$ must have value 0 if this conditional has value 1. And if $p$ has value 0, then $\neg p$ has value 1. So whenever the premise is designated, so is the conclusion, so the argument is **valid**.
+
+In Łukasiewicz, that reasoning helps us, but not in the same way. The premise could have value 1 if both sides of the conditional have value ½. That happens when both $p$ and $q$ have value ½. And in that case, $\neg p$ has value ½, which is not designated. So there is a line where the premise is designated and the conclusion is not, so the argument is **invalid**.
+
+\newpage
+
+There are only two variables here, so we can double check this with brute force. First the table for Strong Kleene, which shows that every line where the premise is designated, so is the conclusion. (But not vice versa, which is interesting.)
+
+```{r echo=FALSE,message=FALSE}
+require(readxl)
+require(tidyverse)
+three_val_distribution <- read_excel("three-val-sk-2.xlsx") %>% 
+  mutate(across(everything(), as.character))
+knitr::kable(three_val_distribution, align = 'c')
+```
+
+What about in Łukasiewicz?
+
+```{r echo=FALSE,message=FALSE}
+require(readxl)
+require(tidyverse)
+three_val_distribution <- read_excel("three-val-l-2.xlsx") %>% 
+  mutate(across(everything(), as.character))
+knitr::kable(three_val_distribution, align = 'c')
+```
+
+And we see the line where the premise is designated and the conclusion is not designated.
