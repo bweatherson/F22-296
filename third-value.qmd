@@ -198,7 +198,7 @@ In the Strong Kleene and Łukasiewicz logics, is this valid:
 
 - $A \wedge (B \vee C) \vdash (A \wedge B) \vee (A \wedge C)$
 
-Let's solve this by brute force, with a table.
+Let's solve this by brute force, with a table.^[For some reason $\vee$ and $\wedge$ aren't showing up in headers in the software I'm using, so I'm using & for _and_.]
 
 ```{r echo=FALSE,message=FALSE}
 require(readxl)
