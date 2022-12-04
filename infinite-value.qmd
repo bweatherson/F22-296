@@ -1,0 +1,198 @@
+---
+title: "Infinite-Valued Logic"
+author: "Phil 296 - December 5"
+format:
+  pdf:
+    documentclass: article
+    md-extensions: +compact_definition_lists
+    keep-tex: true
+    block-headings: false
+    pdf-engine: xelatex
+    include-in-header: 
+      - packages.tex
+  html:
+    minimal: true
+geometry: margin=1.2in
+#mainfont: SF Pro Thin
+#mainfontoptions: 
+# - BoldFont = SF Pro Rounded Semibold
+# - Scale = MatchLowercase
+#mathfont: Fira Math
+editor: source
+---
+
+# Three-Valued Logic without Brute Force
+
+## Some Heuristics for Strong Kleene
+
+Assume we're working out whether $A \vdash B$ is valid, and we don't want to build giant truth tables. What can we do that's more efficient.
+
+- There are no logical truths. So if we're just looking at whether $\vdash B$, we know immediately the answer is that this doesn't hold.
+- Otherwise, we're looking for a case where the premise has value 1, and the conclusion does not.
+- If the premise is a conjunction, both conjuncts must have value 1.
+- If the conclusion is a disjunction, neither disjunct can have value 1, so both must have value less than 1.
+- If a premise includes just one sentence letter, that sentence can only have value 0 or 1. (Why?)
+- If the chapter 1, classical, tableau for the argument is open, it is not valid in Strong Kleene. (Why?)
+- If something is a classical logical truth, then it takes value 1 in Strong Kleene unless some sentence letter in it takes value 0.5. So if the conclusion of the argument is a classical logical truth (like $p \vee \neg p$, or $p \rightarrow p$, or $\neg(p \wedge \neg p)$), you can focus just on lines where at least one sentence letter in the conclusion takes value 0.5.
+- If something is a classical impossibility, i.e., the negation of a logical truth, then the maximal value it can take is 0.5.
+
+The DeMorgan laws all hold in Strong Kleene. (These can mostly be seen by thinking through what the connectives mean in terms of Excel formulae.)
+
+- $\neg (A \wedge B) \vdash \neg A \vee \neg B$
+- $\neg A \vee \neg B \vdash \neg (A \wedge B)$
+- $\neg (A \vee B) \vdash \neg A \wedge \neg B$
+- $\neg A \wedge \neg B \vdash \neg (A \vee B)$
+
+The distribution laws all hold in Strong Kleene.
+
+- $A \wedge (B \vee C) \vdash (A \wedge B) \vee (A \wedge C)$
+- $(A \wedge B) \vee (A \wedge C) \vdash A \wedge (B \vee C)$
+- $A \vee (B \wedge C) \vdash (A \vee B) \wedge (A \vee C)$
+- $(A \vee B) \wedge (A \vee C) \vdash A \vee (B \vee C)$
+
+These of course all hold in classical logic as well, and are often useful to remember.
+
+And one last one to remember that's distinctive to Strong Kleene.
+
+- Conditionals don't behave particularly intuitively in this logic, so it's usually simplest to just replace $A \rightarrow B$ with $\neg A \vee B$, and delete the double negative if $A$ was already negated.
+
+Test how well you're following these heuristics by working out which of the following are valid in Strong Kleene.
+
+1. $\vdash p \rightarrow p$
+2. $p \vee \neg p \vdash p \rightarrow p$
+3. $q \vee \neg q \vdash p \rightarrow p$
+4. $(p \rightarrow q) \rightarrow p \vdash p$
+
+## Some Heuristics for Łukasiewicz
+
+Because it is just like Strong Kleene when conditionals are not involved, everything I said about DeMorgan and distribution still holds here. And most of the bullet points at the top about Strong Kleene are still true. But there are two that are different.
+
+- There are logical truths in Łukasiewicz, such as $p \rightarrow p$.
+- Some classical impossibilities can have value 1, such as $(p \rightarrow \neg p) \wedge (\neg p \rightarrow p)$.
+
+Otherwise the big heuristic is one we mentioned last time.
+
+- $V(A \rightarrow B) < 1$ if and only if $V(A) > V(B)$.
+
+So if there is conditional in the conclusion, or a conditional is one of the disjuncts in the conclusion, you can use this fact to put constraints on what a 'bad' line will be. Consider, for example, the following argument.
+
+- $p \rightarrow (q \wedge r) \vdash p \rightarrow q$
+
+This sounds like it should be right, but it's hard to rely on intuition in these three-value cases. We could do the 27 line table for it, but that would be work. Here's a better argument that it works ih this logic.
+
+Assume that there is a valuation function, a line on the table, where the premise is 1, and the conclusion is not 1. That is $V(p \rightarrow q) < 1$, so $V(p) > V(q)$. From the definition of $\wedge$, we know that $V(q) \geq V(q \wedge r)$. Putting these inequalities together, we get $V(p) > V(q \wedge r), contradicting the assumption that $V(p \rightarrow (q \wedge r)) = 1$.
+
+# Fuzzy Logic
+
+## Problems for Three-Valued Logic
+
+There are a few reasons to be dissatisfied with the three-valued logics that we've looked at so far.
+
+- The Strong Kleene logic has no logical truths, not even $p \rightarrow p$.
+- The Weak Kleene logic doesn't even validate $p \vdash p \vee q$.
+- The Łukasiewicz logic has strange logical truths like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
+- Especially in cases of vagueness, these logics seem to treat unlike cases alike. Among the borderline cases of being rich, some of them are clearly not clearly not rich (i.e., they are a long way from the lower border), and some of them are clearly not clearly rich (i.e., they are a long way from the upper border). But the three-valued logics treat all these cases alike.
+- In the case of vagueness, none of these theories respect so-called **penumbral connections**.
+
+Here's what I mean by that last thing. Assume Alice and Bob are in the same cultural milieu, have the same jobs, live in the same neighbourhood etc. And within that cultural setting, they are both borderline cases of being rich. But Alice has a few more dollars in the bank, lives in an ever-so-slightly nicer house, makes a few hundred dollars a year more, and generally is richer than Bob. Consider these sentences.
+
+1. If Bob is rich, so is Alice.
+2. If Alice is rich, so is Bob.
+
+It seems like 1 is clearly true. If Alice is richer than Bob, which she is, then if Bob is rich, Alice is rich too. But the converse isn't quite as clear. Maybe that small difference between them makes a difference. But As long as _Alice is rich_ and _Bob is rich_ both get value 0.5, we can't tell the difference between these.
+
+Penumbral connections are also important in law. Remember the case we discussed in class of the vague law _No vehicles in the park_. It's a bit tricky to say what a vehicle is. But I am very confident that the following would be bad.
+
+- In the morning, someone comes before the court with a ticket for riding a (regular) skateboard. The magistrate upholds the ticket, because a (regular) skateboard is a vehicle.
+- In the afternoon, someone comes before the court with a ticket for riding a motorised skateboard. The magistrate dismisses the ticket, because a motorised skateboard is not a vehicle.
+
+Whatever theory we have of how to resolve vague laws, that should be out of bounds. So would an approach that resolved all ambiguities in the city's favor for Black defendents, but in the defendent's favor for white defendents. And that could be bad even if no individual case was clearly decided wrongly. Three-valued approaches have a hard job saying what's wrong with these pairs of decisions.
+
+## More Truth-Values
+
+There is a natural solution to the last three problems: more truth-values. So-called fuzzy logics use the following setup.
+
+- The truth values are all the reals in [0, 1]. Sometimes (as in _What If?_) you'll see people say the truth values are the rationals in [0, 1], but this doesn't make a major difference, and I think it's cleaner to simply use the reals.
+- The rules for the connectives are the same as in the three-valued Łukasiewicz logic. So we have:
+
+$$
+v(\neg A) = 1 - v(A) \\
+v(A \wedge B) = min(v(A), v(B)) \\
+v(A \vee B) = max(v(A), v(B)) \\
+v(A \rightarrow B) = min(1, 1 - v(A) + v(B)) = min(1, 1 - (v(A) - v(B)))
+$$
+
+We'll get to the designated values in a second, but note that we've already said enough to solve the last two problems above. Given what I've said, perhaps _Alice is rich_ gets truth value 0.7. And _Bob is rich_ gets truth value 0.4. Then we'll respect the difference between them; the truth values represent the fact that Alice is richer than Bob. And we get the asymmetry in the conditionals as well. The first conditional, which is $0.4 \rightarrow 0.7$ has value 1, while the second conditional, which is $0.7 \rightarrow 0.4$ gets value 0.7. That seems all to the good. But we haven't got a logic yet, because we haven't said what the designated values are.
+
+## Designated Values
+
+So, what are the designated values? Well, the phrase 'fuzzy logic' is annoyingly imprecise here, and different people use it with different meanings on just this point.^[The phrase is from a computer scientist Lofti Zadeh (dates). He originally used it in the (first/second) meaning. Zadeh wasn't employed in a philosophy department, but his original paper setting out fuzzy logic was published in a philosophy journal, _Synthese_. It is by some measures one of the most widely cited philosophy papers ever.]
+
+One logic, what I'll call _truth-preserving fuzzy logic_, simply sets the designated value to be 1. The result is a logic that is very similar to the three-valued Łukasiewicz logic, with the main exception being that it no longer validates weird things like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
+
+But a more distinctive fuzzy logic comes from taking a broader approach. Call _value-preserving fuzzy logic_ the logic that has the values and rules as above, and the following rule:
+
+- An argument $A \vdash B$ is valid iff on assignment, $v(A) \leq v(B)$. That is, going from $A$ to $B$ never means going from more-true to less-true.
+
+I think of this as a 'no backwards steps' theory of validity. 
+
+
+## No Backwards Steps
+
+Note several features of this notion of validity. 
+
+1. Entailment is transitive: if $A \vdash B$ and $B \vdash C$, then $A \vdash C$.
+2. It doesn't matter whether premises are listed or conjoined: $A, B \vdash C$ iff $A \wedge B \vdash C$.
+3. If two sentences $A$ and $B$ entail each other, i.e., $A \vdash B$ and $B \vdash A$, then they have the same truth values in every assignment.
+4. As a consequence of that last point, if $A \vdash B$ and $B \vdash A$, then $A$ and $B$ can be substituted for each other in any argument. That is, let $C, C^\prime$ be any sentences that are alike except that $C$ has $A$ as a constituent, and $C^\prime$ has $B$ in the same place. Then $C \vdash D$ iff $C^\prime \vdash D$, and $D \vdash C$ iff $D \vdash C^\prime$.
+
+Those last two properties are very important in applications of logics. It is very helpful to be able to treat logically equivalent sentences as if they really said the same thing in every context, and to be able to express logical equivalence as mutual entailment.
+
+But the three-valued logics we looked at didn't have this property. Let's start with the three-valued Łukasiewicz logic. First question, are these claims both true?
+
+- $p \wedge \neg p \vdash \neg (q \rightarrow q)$
+- $\neg (q \rightarrow q) \vdash p \wedge \neg p$
+
+Yes. In both cases the premise can't take value 1, so there is no assignment where the premise takes value 1 and the conclusion does not. But now look what happens when we substitute one of these sentences for the other. Which of these are logical truths?
+
+- $\neg (q \rightarrow q) \rightarrow r$
+- $(p \wedge \neg p) \rightarrow r$
+
+The first is a logical truth, since the antecedent always takes value 0, and the value of a conditional with antecedent value 0 is always 1. But the second is not a logical truth; it fails when $p$ is 0.5 and $r$ is 0.
+
+And everything I've said here applies to the infinite-valued Łukasiewicz logic (i.e., truth-preserving fuzzy logic). I won't go over that, but you can go back and see that none of the steps use the fact that 0, 0.5 and 1 are the only truth-values; just that they are possible truth-values.
+
+In Strong Kleene that example won't work since neither of them are logical truths; rememeber there are no logical truths in Strong Kleene. But we can still generate a problem. First, any two simple contradictions are equivalent in Strong Kleene.
+
+- $p \wedge \neg p \vdash q \wedge \neg q$
+- $q \wedge \neg q \vash p \wedge \neg p$
+
+But which of these are valid arguments in Strong Kleene?
+
+- $\neg(p \wedge \neg p) \vdash p \rightarrow p$
+- $\neg(q \wedge \neg q) \vdash p \rightarrow p$
+
+The first is valid. The premise is designated if $p$ is either 0 or 1, and in either case the conclusion is designated. But the second fails when $q$ is 0 or 1, and $p$ is 0.5.
+
+## Modus Ponens
+
+The substitution principle I was just describing is sometimes called _congruence_. And it's sometimes taken to be definitive of something even being a logic. (So the three-valued logics we looked at wouldn't even deserve the honorific _logic_ on this rather strict approach.) But there is one other thing that looks just as worthy of the name logic; that it validates this reasoning.
+
+- $A, A \rightarrow B \vdash B$
+
+Consider a simple instance of this where $A = p, B = q, V(p) = 0.9, V(q) = 0.7$. What is $V(p \rightarrow q)$? Well, to get from $p$ to $q$ we go backwards by 0.2, going back from 0.9 to 0.7. So $V(p \rightarrow q) = 1 - 0.2 = 0.8$. So the premises have values 0.9 and 0.8. But the conclusion has value 0.7. So the conclusion is less true than either premise. So the argument is invalid.
+
+Isn't this terrible? Isn't this the most obvious validity there is? Well, proponents of fuzzy logic sometimes say that in fact this is a _good_ feature of their logic. Why? Well, remember that this was developed to deal with vagueness. And the canonical vagueness argument is the Sorites argument, which looks like this.
+
+0. The person with $0 is not rich.
+1. If the person with $0 is not rich, neither is the person with $1.
+2. If the person with $1 is not rich, neither is the person with $2, etc.
+C.  The person with Bezos-wealth is not rich.
+
+The fuzzy logic response to this argument is that the premises are all true, but the argument is **invalid**. We only thought it was valid because arguments with that structure and non-vague terms are valid.
+
+This would be a *very big* change in our reasoning practices. Imagine pulling out this move in a different class. Someone is criticising a claim $C$ that you make, and they say that $A$ is true, and if $A$ then $C$ is also true, so you have to give up $C$. And you respond that the premises there seem fine, but the argument is not in fact valid, so $C$ is still true. I don't know, that seems bad. But this problem is hard!
+
+
+
+
