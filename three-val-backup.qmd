@@ -110,7 +110,7 @@ v(A \rightarrow B) &= v(\neg A \vee B) = min(1, 1 - v(A) + v(B))
 
 I've done two definitions for $\rightarrow$ which are equivalent in this setting because they very soon will become not equivalent.
 
-It's not much work to check given these definitions that the logical truths, and the validities, are just the ones we covered in chapter 1. Indeed, the definitions we've used are pretty similar to the definitions in chapter 1. But let's note one special case. Consider the sentence $p \vee \neg p$. There is only one sentence letter in this, $p$, and there are only two values in the logic, $1, 0$, so there are only two cases to check. If $v(p) = 1$, then the maximum of $v(p), v(\neg p)$ will be 1, so $v(p \vee \neg p)$ will be 1. If If $v(p) = 0$, then $v(\neg p) = 1$, so again the maximum of $v(p), v(\neg p)$ will be 1, so $v(p \vee \neg p)$ will be 1. Either way, $v(p \vee \neg p) = 1$, so $p \vee \neg p$ is a logical truth *in this logic*.
+It's not much work to check given these definitions that the logical truths, and the validities, are just the ones we covered in chapter 1. Indeed, the definitions we've used are pretty similar to the definitions in chapter 1. But let's note one special case. Consider the sentence $p \vee \neg p$. There is only one sentence letter in this, $p$, and there are only two values in the logic, $1, 0$, so there are only two cases to check. If $v(p) = 1$, then the maximum of $v(p), v(\neg p)$ will be 1, so v(p \vee \neg p)$ will be 1. If If $v(p) = 0$, then $v(\neg p) = 1$, so again the maximum of $v(p), v(\neg p)$ will be 1, so v(p \vee \neg p)$ will be 1. Either way, $v(p \vee \neg p) = 1$, so $p \vee \neg p$ is a logical truth *in this logic*.
 
 ## Strong Kleene Logic
 
@@ -198,7 +198,7 @@ In the Strong Kleene and Łukasiewicz logics, is this valid:
 
 - $A \wedge (B \vee C) \vdash (A \wedge B) \vee (A \wedge C)$
 
-Let's solve this by brute force, with a table.^[For some reason $\vee$ and $\wedge$ aren't showing up in headers in the software I'm using, so I'm using & for _and_.]
+Let's solve this by brute force, with a table.
 
 ```{r echo=FALSE,message=FALSE}
 require(readxl)
