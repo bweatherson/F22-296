@@ -1,0 +1,603 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1.2in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Infinite-Valued Logic},
+  pdfauthor={Phil 296 - December 5},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Infinite-Valued Logic}
+\author{Phil 296 - December 5}
+\date{}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, sharp corners, enhanced, breakable]}{\end{tcolorbox}}\fi
+
+\hypertarget{three-valued-logic-without-brute-force}{%
+\section{Three-Valued Logic without Brute
+Force}\label{three-valued-logic-without-brute-force}}
+
+\hypertarget{some-heuristics-for-strong-kleene}{%
+\subsection{Some Heuristics for Strong
+Kleene}\label{some-heuristics-for-strong-kleene}}
+
+Assume we're working out whether \(A \vdash B\) is valid, and we don't
+want to build giant truth tables. What can we do that's more efficient.
+
+\begin{itemize}
+\tightlist
+\item
+  There are no logical truths. So if we're just looking at whether
+  \(\vdash B\), we know immediately the answer is that this doesn't
+  hold.
+\item
+  Otherwise, we're looking for a case where the premise has value 1, and
+  the conclusion does not.
+\item
+  If the premise is a conjunction, both conjuncts must have value 1.
+\item
+  If the conclusion is a disjunction, neither disjunct can have value 1,
+  so both must have value less than 1.
+\item
+  If a premise includes just one sentence letter, that sentence can only
+  have value 0 or 1. (Why?)
+\item
+  If the chapter 1, classical, tableau for the argument is open, it is
+  not valid in Strong Kleene. (Why?)
+\item
+  If something is a classical logical truth, then it takes value 1 in
+  Strong Kleene unless some sentence letter in it takes value 0.5. So if
+  the conclusion of the argument is a classical logical truth (like
+  \(p \vee \neg p\), or \(p \rightarrow p\), or
+  \(\neg(p \wedge \neg p)\)), you can focus just on lines where at least
+  one sentence letter in the conclusion takes value 0.5.
+\item
+  If something is a classical impossibility, i.e., the negation of a
+  logical truth, then the maximal value it can take is 0.5.
+\end{itemize}
+
+The DeMorgan laws all hold in Strong Kleene. (These can mostly be seen
+by thinking through what the connectives mean in terms of Excel
+formulae.)
+
+\begin{itemize}
+\tightlist
+\item
+  \(\neg (A \wedge B) \vdash \neg A \vee \neg B\)
+\item
+  \(\neg A \vee \neg B \vdash \neg (A \wedge B)\)
+\item
+  \(\neg (A \vee B) \vdash \neg A \wedge \neg B\)
+\item
+  \(\neg A \wedge \neg B \vdash \neg (A \vee B)\)
+\end{itemize}
+
+The distribution laws all hold in Strong Kleene.
+
+\begin{itemize}
+\tightlist
+\item
+  \(A \wedge (B \vee C) \vdash (A \wedge B) \vee (A \wedge C)\)
+\item
+  \((A \wedge B) \vee (A \wedge C) \vdash A \wedge (B \vee C)\)
+\item
+  \(A \vee (B \wedge C) \vdash (A \vee B) \wedge (A \vee C)\)
+\item
+  \((A \vee B) \wedge (A \vee C) \vdash A \vee (B \vee C)\)
+\end{itemize}
+
+These of course all hold in classical logic as well, and are often
+useful to remember.
+
+And one last one to remember that's distinctive to Strong Kleene.
+
+\begin{itemize}
+\tightlist
+\item
+  Conditionals don't behave particularly intuitively in this logic, so
+  it's usually simplest to just replace \(A \rightarrow B\) with
+  \(\neg A \vee B\), and delete the double negative if \(A\) was already
+  negated.
+\end{itemize}
+
+Test how well you're following these heuristics by working out which of
+the following are valid in Strong Kleene.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\vdash p \rightarrow p\)
+\item
+  \(p \vee \neg p \vdash p \rightarrow p\)
+\item
+  \(q \vee \neg q \vdash p \rightarrow p\)
+\item
+  \((p \rightarrow q) \rightarrow p \vdash p\)
+\end{enumerate}
+
+\hypertarget{some-heuristics-for-ux142ukasiewicz}{%
+\subsection{Some Heuristics for
+Łukasiewicz}\label{some-heuristics-for-ux142ukasiewicz}}
+
+Because it is just like Strong Kleene when conditionals are not
+involved, everything I said about DeMorgan and distribution still holds
+here. And most of the bullet points at the top about Strong Kleene are
+still true. But there are two that are different.
+
+\begin{itemize}
+\tightlist
+\item
+  There are logical truths in Łukasiewicz, such as \(p \rightarrow p\).
+\item
+  Some classical impossibilities can have value 1, such as
+  \((p \rightarrow \neg p) \wedge (\neg p \rightarrow p)\).
+\end{itemize}
+
+Otherwise the big heuristic is one we mentioned last time.
+
+\begin{itemize}
+\tightlist
+\item
+  \(V(A \rightarrow B) < 1\) if and only if \(V(A) > V(B)\).
+\end{itemize}
+
+So if there is conditional in the conclusion, or a conditional is one of
+the disjuncts in the conclusion, you can use this fact to put
+constraints on what a `bad' line will be. Consider, for example, the
+following argument.
+
+\begin{itemize}
+\tightlist
+\item
+  \(p \rightarrow (q \wedge r) \vdash p \rightarrow q\)
+\end{itemize}
+
+This sounds like it should be right, but it's hard to rely on intuition
+in these three-value cases. We could do the 27 line table for it, but
+that would be work. Here's a better argument that it works ih this
+logic.
+
+Assume that there is a valuation function, a line on the table, where
+the premise is 1, and the conclusion is not 1. That is
+\(V(p \rightarrow q) < 1\), so \(V(p) > V(q)\). From the definition of
+\(\wedge\), we know that \(V(q) \geq V(q \wedge r)\). Putting these
+inequalities together, we get \$V(p) \textgreater{} V(q \wedge r),
+contradicting the assumption that \(V(p \rightarrow (q \wedge r)) = 1\).
+
+\hypertarget{fuzzy-logic}{%
+\section{Fuzzy Logic}\label{fuzzy-logic}}
+
+\hypertarget{problems-for-three-valued-logic}{%
+\subsection{Problems for Three-Valued
+Logic}\label{problems-for-three-valued-logic}}
+
+There are a few reasons to be dissatisfied with the three-valued logics
+that we've looked at so far.
+
+\begin{itemize}
+\tightlist
+\item
+  The Strong Kleene logic has no logical truths, not even
+  \(p \rightarrow p\).
+\item
+  The Weak Kleene logic doesn't even validate \(p \vdash p \vee q\).
+\item
+  The Łukasiewicz logic has strange logical truths like \$(p
+  \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
+\item
+  Especially in cases of vagueness, these logics seem to treat unlike
+  cases alike. Among the borderline cases of being rich, some of them
+  are clearly not clearly not rich (i.e., they are a long way from the
+  lower border), and some of them are clearly not clearly rich (i.e.,
+  they are a long way from the upper border). But the three-valued
+  logics treat all these cases alike.
+\item
+  In the case of vagueness, none of these theories respect so-called
+  \textbf{penumbral connections}.
+\end{itemize}
+
+Here's what I mean by that last thing. Assume Alice and Bob are in the
+same cultural milieu, have the same jobs, live in the same neighbourhood
+etc. And within that cultural setting, they are both borderline cases of
+being rich. But Alice has a few more dollars in the bank, lives in an
+ever-so-slightly nicer house, makes a few hundred dollars a year more,
+and generally is richer than Bob. Consider these sentences.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  If Bob is rich, so is Alice.
+\item
+  If Alice is rich, so is Bob.
+\end{enumerate}
+
+It seems like 1 is clearly true. If Alice is richer than Bob, which she
+is, then if Bob is rich, Alice is rich too. But the converse isn't quite
+as clear. Maybe that small difference between them makes a difference.
+But As long as \emph{Alice is rich} and \emph{Bob is rich} both get
+value 0.5, we can't tell the difference between these.
+
+Penumbral connections are also important in law. Remember the case we
+discussed in class of the vague law \emph{No vehicles in the park}. It's
+a bit tricky to say what a vehicle is. But I am very confident that the
+following would be bad.
+
+\begin{itemize}
+\tightlist
+\item
+  In the morning, someone comes before the court with a ticket for
+  riding a (regular) skateboard. The magistrate upholds the ticket,
+  because a (regular) skateboard is a vehicle.
+\item
+  In the afternoon, someone comes before the court with a ticket for
+  riding a motorised skateboard. The magistrate dismisses the ticket,
+  because a motorised skateboard is not a vehicle.
+\end{itemize}
+
+Whatever theory we have of how to resolve vague laws, that should be out
+of bounds. So would an approach that resolved all ambiguities in the
+city's favor for Black defendents, but in the defendent's favor for
+white defendents. And that could be bad even if no individual case was
+clearly decided wrongly. Three-valued approaches have a hard job saying
+what's wrong with these pairs of decisions.
+
+\hypertarget{more-truth-values}{%
+\subsection{More Truth-Values}\label{more-truth-values}}
+
+There is a natural solution to the last three problems: more
+truth-values. So-called fuzzy logics use the following setup.
+
+\begin{itemize}
+\tightlist
+\item
+  The truth values are all the reals in {[}0, 1{]}. Sometimes (as in
+  \emph{What If?}) you'll see people say the truth values are the
+  rationals in {[}0, 1{]}, but this doesn't make a major difference, and
+  I think it's cleaner to simply use the reals.
+\item
+  The rules for the connectives are the same as in the three-valued
+  Łukasiewicz logic. So we have:
+\end{itemize}
+
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= min(1, 1 - v(A) + v(B)) = min(1, 1 - (v(A) - v(B)))
+\end{align*}
+
+We'll get to the designated values in a second, but note that we've
+already said enough to solve the last two problems above. Given what
+I've said, perhaps \emph{Alice is rich} gets truth value 0.7. And
+\emph{Bob is rich} gets truth value 0.4. Then we'll respect the
+difference between them; the truth values represent the fact that Alice
+is richer than Bob. And we get the asymmetry in the conditionals as
+well. The first conditional, which is \(0.4 \rightarrow 0.7\) has value
+1, while the second conditional, which is \(0.7 \rightarrow 0.4\) gets
+value 0.7. That seems all to the good. But we haven't got a logic yet,
+because we haven't said what the designated values are.
+
+\hypertarget{designated-values}{%
+\subsection{Designated Values}\label{designated-values}}
+
+So, what are the designated values? Well, the phrase `fuzzy logic' is
+annoyingly imprecise here, and different people use it with different
+meanings on just this point.\footnote{The phrase is from a computer
+  scientist Lofti Zadeh (1921-2017). But he had a somewhat idiosyncratic
+  definition of what it was, which doesn't precisely correspond to
+  either model here. Zadeh wasn't employed in a philosophy department,
+  he was in electrical engineering at Cal, but his original paper
+  setting out fuzzy logic was published in a philosophy journal,
+  \emph{Synthese}. It is by some measures one of the most widely cited
+  philosophy papers ever.}
+
+One logic, what I'll call \emph{truth-preserving fuzzy logic}, simply
+sets the designated value to be 1. The result is a logic that is very
+similar to the three-valued Łukasiewicz logic, with the main exception
+being that it no longer validates weird things like \$(p \rightarrow q)
+\vee ((q \rightarrow r) \vee (r \rightarrow s)).
+
+But a more distinctive fuzzy logic comes from taking a broader approach.
+Call \emph{value-preserving fuzzy logic} the logic that has the values
+and rules as above, and the following rule:
+
+\begin{itemize}
+\tightlist
+\item
+  An argument \(A \vdash B\) is valid iff on assignment,
+  \(v(A) \leq v(B)\). That is, going from \(A\) to \(B\) never means
+  going from more-true to less-true.
+\end{itemize}
+
+I think of this as a `no backwards steps' theory of validity.
+
+\hypertarget{no-backwards-steps}{%
+\subsection{No Backwards Steps}\label{no-backwards-steps}}
+
+Note several features of this notion of validity.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Entailment is transitive: if \(A \vdash B\) and \(B \vdash C\), then
+  \(A \vdash C\).
+\item
+  It doesn't matter whether premises are listed or conjoined:
+  \(A, B \vdash C\) iff \(A \wedge B \vdash C\).
+\item
+  If two sentences \(A\) and \(B\) entail each other, i.e.,
+  \(A \vdash B\) and \(B \vdash A\), then they have the same truth
+  values in every assignment.
+\item
+  As a consequence of that last point, if \(A \vdash B\) and
+  \(B \vdash A\), then \(A\) and \(B\) can be substituted for each other
+  in any argument. That is, let \(C, C^\prime\) be any sentences that
+  are alike except that \(C\) has \(A\) as a constituent, and
+  \(C^\prime\) has \(B\) in the same place. Then \(C \vdash D\) iff
+  \(C^\prime \vdash D\), and \(D \vdash C\) iff \(D \vdash C^\prime\).
+\end{enumerate}
+
+Those last two properties are very important in applications of logics.
+It is very helpful to be able to treat logically equivalent sentences as
+if they really said the same thing in every context, and to be able to
+express logical equivalence as mutual entailment.
+
+But the three-valued logics we looked at didn't have this property.
+Let's start with the three-valued Łukasiewicz logic. First question, are
+these claims both true?
+
+\begin{itemize}
+\tightlist
+\item
+  \(p \wedge \neg p \vdash \neg (q \rightarrow q)\)
+\item
+  \(\neg (q \rightarrow q) \vdash p \wedge \neg p\)
+\end{itemize}
+
+Yes. In both cases the premise can't take value 1, so there is no
+assignment where the premise takes value 1 and the conclusion does not.
+But now look what happens when we substitute one of these sentences for
+the other. Which of these are logical truths?
+
+\begin{itemize}
+\tightlist
+\item
+  \(\neg (q \rightarrow q) \rightarrow r\)
+\item
+  \((p \wedge \neg p) \rightarrow r\)
+\end{itemize}
+
+The first is a logical truth, since the antecedent always takes value 0,
+and the value of a conditional with antecedent value 0 is always 1. But
+the second is not a logical truth; it fails when \(p\) is 0.5 and \(r\)
+is 0.
+
+And everything I've said here applies to the infinite-valued Łukasiewicz
+logic (i.e., truth-preserving fuzzy logic). I won't go over that, but
+you can go back and see that none of the steps use the fact that 0, 0.5
+and 1 are the only truth-values; just that they are possible
+truth-values.
+
+In Strong Kleene that example won't work since neither of them are
+logical truths; rememeber there are no logical truths in Strong Kleene.
+But we can still generate a problem. First, any two simple
+contradictions are equivalent in Strong Kleene.
+
+\begin{itemize}
+\tightlist
+\item
+  \(p \wedge \neg p \vdash q \wedge \neg q\)
+\item
+  \(q \wedge \neg q \vdash p \wedge \neg p\)
+\end{itemize}
+
+But which of these are valid arguments in Strong Kleene?
+
+\begin{itemize}
+\tightlist
+\item
+  \(\neg(p \wedge \neg p) \vdash p \rightarrow p\)
+\item
+  \(\neg(q \wedge \neg q) \vdash p \rightarrow p\)
+\end{itemize}
+
+The first is valid. The premise is designated if \(p\) is either 0 or 1,
+and in either case the conclusion is designated. But the second fails
+when \(q\) is 0 or 1, and \(p\) is 0.5.
+
+\hypertarget{modus-ponens}{%
+\subsection{Modus Ponens}\label{modus-ponens}}
+
+The substitution principle I was just describing is sometimes called
+\emph{congruence}. And it's sometimes taken to be definitive of
+something even being a logic. (So the three-valued logics we looked at
+wouldn't even deserve the honorific \emph{logic} on this rather strict
+approach.) But there is one other thing that looks just as worthy of the
+name logic; that it validates this reasoning.
+
+\begin{itemize}
+\tightlist
+\item
+  \(A, A \rightarrow B \vdash B\)
+\end{itemize}
+
+Consider a simple instance of this where
+\(A = p, B = q, V(p) = 0.9, V(q) = 0.7\). What is
+\(V(p \rightarrow q)\)? Well, to get from \(p\) to \(q\) we go backwards
+by 0.2, going back from 0.9 to 0.7. So
+\(V(p \rightarrow q) = 1 - 0.2 = 0.8\). So the premises have values 0.9
+and 0.8. But the conclusion has value 0.7. So the conclusion is less
+true than either premise. So the argument is invalid.
+
+Isn't this terrible? Isn't this the most obvious validity there is?
+Well, proponents of fuzzy logic sometimes say that in fact this is a
+\emph{good} feature of their logic. Why? Well, remember that this was
+developed to deal with vagueness. And the canonical vagueness argument
+is the Sorites argument, which looks like this.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{-1}
+\tightlist
+\item
+  The person with \$0 is not rich.
+\item
+  If the person with \$0 is not rich, neither is the person with \$1.
+\item
+  If the person with \$1 is not rich, neither is the person with \$2,
+  etc.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\Alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The person with Bezos-wealth is not rich.
+\end{enumerate}
+
+The fuzzy logic response to this argument is that the premises are all
+true, but the argument is \textbf{invalid}. We only thought it was valid
+because arguments with that structure and non-vague terms are valid.
+
+This would be a \emph{very big} change in our reasoning practices.
+Imagine pulling out this move in a different class. Someone is
+criticising a claim \(C\) that you make, and they say that \(A\) is
+true, and if \(A\) then \(C\) is also true, so you have to give up
+\(C\). And you respond that the premises there seem fine, but the
+argument is not in fact valid, so \(C\) is still true. I don't know,
+that seems bad. But this problem is hard!
+
+
+
+\end{document}

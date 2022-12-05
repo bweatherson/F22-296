@@ -115,18 +115,18 @@ There is a natural solution to the last three problems: more truth-values. So-ca
 - The truth values are all the reals in [0, 1]. Sometimes (as in _What If?_) you'll see people say the truth values are the rationals in [0, 1], but this doesn't make a major difference, and I think it's cleaner to simply use the reals.
 - The rules for the connectives are the same as in the three-valued Łukasiewicz logic. So we have:
 
-$$
-v(\neg A) = 1 - v(A) \\
-v(A \wedge B) = min(v(A), v(B)) \\
-v(A \vee B) = max(v(A), v(B)) \\
-v(A \rightarrow B) = min(1, 1 - v(A) + v(B)) = min(1, 1 - (v(A) - v(B)))
-$$
+\begin{align*}
+v(\neg A) &= 1 - v(A) \\
+v(A \wedge B) &= min(v(A), v(B)) \\
+v(A \vee B) &= max(v(A), v(B)) \\
+v(A \rightarrow B) &= min(1, 1 - v(A) + v(B)) = min(1, 1 - (v(A) - v(B)))
+\end{align*}
 
 We'll get to the designated values in a second, but note that we've already said enough to solve the last two problems above. Given what I've said, perhaps _Alice is rich_ gets truth value 0.7. And _Bob is rich_ gets truth value 0.4. Then we'll respect the difference between them; the truth values represent the fact that Alice is richer than Bob. And we get the asymmetry in the conditionals as well. The first conditional, which is $0.4 \rightarrow 0.7$ has value 1, while the second conditional, which is $0.7 \rightarrow 0.4$ gets value 0.7. That seems all to the good. But we haven't got a logic yet, because we haven't said what the designated values are.
 
 ## Designated Values
 
-So, what are the designated values? Well, the phrase 'fuzzy logic' is annoyingly imprecise here, and different people use it with different meanings on just this point.^[The phrase is from a computer scientist Lofti Zadeh (dates). He originally used it in the (first/second) meaning. Zadeh wasn't employed in a philosophy department, but his original paper setting out fuzzy logic was published in a philosophy journal, _Synthese_. It is by some measures one of the most widely cited philosophy papers ever.]
+So, what are the designated values? Well, the phrase 'fuzzy logic' is annoyingly imprecise here, and different people use it with different meanings on just this point.^[The phrase is from a computer scientist Lofti Zadeh (1921-2017). But he had a somewhat idiosyncratic definition of what it was, which doesn't precisely correspond to either model here. Zadeh wasn't employed in a philosophy department, he was in electrical engineering at Cal, but his original paper setting out fuzzy logic was published in a philosophy journal, _Synthese_. It is by some measures one of the most widely cited philosophy papers ever.]
 
 One logic, what I'll call _truth-preserving fuzzy logic_, simply sets the designated value to be 1. The result is a logic that is very similar to the three-valued Łukasiewicz logic, with the main exception being that it no longer validates weird things like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
 
@@ -165,7 +165,7 @@ And everything I've said here applies to the infinite-valued Łukasiewicz logic 
 In Strong Kleene that example won't work since neither of them are logical truths; rememeber there are no logical truths in Strong Kleene. But we can still generate a problem. First, any two simple contradictions are equivalent in Strong Kleene.
 
 - $p \wedge \neg p \vdash q \wedge \neg q$
-- $q \wedge \neg q \vash p \wedge \neg p$
+- $q \wedge \neg q \vdash p \wedge \neg p$
 
 But which of these are valid arguments in Strong Kleene?
 
