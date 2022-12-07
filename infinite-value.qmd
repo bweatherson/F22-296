@@ -80,7 +80,7 @@ So if there is conditional in the conclusion, or a conditional is one of the dis
 
 This sounds like it should be right, but it's hard to rely on intuition in these three-value cases. We could do the 27 line table for it, but that would be work. Here's a better argument that it works ih this logic.
 
-Assume that there is a valuation function, a line on the table, where the premise is 1, and the conclusion is not 1. That is $V(p \rightarrow q) < 1$, so $V(p) > V(q)$. From the definition of $\wedge$, we know that $V(q) \geq V(q \wedge r)$. Putting these inequalities together, we get $V(p) > V(q \wedge r), contradicting the assumption that $V(p \rightarrow (q \wedge r)) = 1$.
+Assume that there is a valuation function, a line on the table, where the premise is 1, and the conclusion is not 1. That is $V(p \rightarrow q) < 1$, so $V(p) > V(q)$. From the definition of $\wedge$, we know that $V(q) \geq V(q \wedge r)$. Putting these inequalities together, we get $V(p) > V(q \wedge r)$, contradicting the assumption that $V(p \rightarrow (q \wedge r)) = 1$.
 
 # Fuzzy Logic
 
@@ -90,7 +90,7 @@ There are a few reasons to be dissatisfied with the three-valued logics that we'
 
 - The Strong Kleene logic has no logical truths, not even $p \rightarrow p$.
 - The Weak Kleene logic doesn't even validate $p \vdash p \vee q$.
-- The Łukasiewicz logic has strange logical truths like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
+- The Łukasiewicz logic has strange logical truths like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s))$.
 - Especially in cases of vagueness, these logics seem to treat unlike cases alike. Among the borderline cases of being rich, some of them are clearly not clearly not rich (i.e., they are a long way from the lower border), and some of them are clearly not clearly rich (i.e., they are a long way from the upper border). But the three-valued logics treat all these cases alike.
 - In the case of vagueness, none of these theories respect so-called **penumbral connections**.
 
@@ -128,7 +128,7 @@ We'll get to the designated values in a second, but note that we've already said
 
 So, what are the designated values? Well, the phrase 'fuzzy logic' is annoyingly imprecise here, and different people use it with different meanings on just this point.^[The phrase is from a computer scientist Lofti Zadeh (1921-2017). But he had a somewhat idiosyncratic definition of what it was, which doesn't precisely correspond to either model here. Zadeh wasn't employed in a philosophy department, he was in electrical engineering at Cal, but his original paper setting out fuzzy logic was published in a philosophy journal, _Synthese_. It is by some measures one of the most widely cited philosophy papers ever.]
 
-One logic, what I'll call _truth-preserving fuzzy logic_, simply sets the designated value to be 1. The result is a logic that is very similar to the three-valued Łukasiewicz logic, with the main exception being that it no longer validates weird things like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
+One logic, what I'll call _truth-preserving fuzzy logic_, simply sets the designated value to be 1. The result is a logic that is very similar to the three-valued Łukasiewicz logic, with the main exception being that it no longer validates weird things like $(p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s))$.
 
 But a more distinctive fuzzy logic comes from taking a broader approach. Call _value-preserving fuzzy logic_ the logic that has the values and rules as above, and the following rule:
 

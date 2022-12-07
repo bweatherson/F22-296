@@ -138,7 +138,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, sharp corners, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, enhanced, interior hidden, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, sharp corners]}{\end{tcolorbox}}\fi
 
 \hypertarget{three-valued-logic-without-brute-force}{%
 \section{Three-Valued Logic without Brute
@@ -289,8 +289,8 @@ Assume that there is a valuation function, a line on the table, where
 the premise is 1, and the conclusion is not 1. That is
 \(V(p \rightarrow q) < 1\), so \(V(p) > V(q)\). From the definition of
 \(\wedge\), we know that \(V(q) \geq V(q \wedge r)\). Putting these
-inequalities together, we get \$V(p) \textgreater{} V(q \wedge r),
-contradicting the assumption that \(V(p \rightarrow (q \wedge r)) = 1\).
+inequalities together, we get \(V(p) > V(q \wedge r)\), contradicting
+the assumption that \(V(p \rightarrow (q \wedge r)) = 1\).
 
 \hypertarget{fuzzy-logic}{%
 \section{Fuzzy Logic}\label{fuzzy-logic}}
@@ -310,8 +310,8 @@ that we've looked at so far.
 \item
   The Weak Kleene logic doesn't even validate \(p \vdash p \vee q\).
 \item
-  The Łukasiewicz logic has strange logical truths like \$(p
-  \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s)).
+  The Łukasiewicz logic has strange logical truths like
+  \((p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s))\).
 \item
   Especially in cases of vagueness, these logics seem to treat unlike
   cases alike. Among the borderline cases of being rich, some of them
@@ -423,8 +423,8 @@ meanings on just this point.\footnote{The phrase is from a computer
 One logic, what I'll call \emph{truth-preserving fuzzy logic}, simply
 sets the designated value to be 1. The result is a logic that is very
 similar to the three-valued Łukasiewicz logic, with the main exception
-being that it no longer validates weird things like \$(p \rightarrow q)
-\vee ((q \rightarrow r) \vee (r \rightarrow s)).
+being that it no longer validates weird things like
+\((p \rightarrow q) \vee ((q \rightarrow r) \vee (r \rightarrow s))\).
 
 But a more distinctive fuzzy logic comes from taking a broader approach.
 Call \emph{value-preserving fuzzy logic} the logic that has the values

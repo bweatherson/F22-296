@@ -1,0 +1,70 @@
+---
+title: "Sample Exam"
+author: "Phil 296 - December 7"
+format:
+  pdf:
+    documentclass: article
+    md-extensions: +compact_definition_lists
+    keep-tex: true
+    block-headings: false
+    pdf-engine: xelatex
+    include-in-header: 
+      - packages.tex
+  html:
+    minimal: true
+geometry: margin=1 in
+#mainfont: SF Pro Thin
+#mainfontoptions: 
+# - BoldFont = SF Pro Rounded Semibold
+# - Scale = MatchLowercase
+#mathfont: Fira Math
+editor: source
+---
+
+Note that all the questions here are yes/no questions. But you can upload as many files as you like at the end to get partial credit for ones you don't get right. Just say carefully which photo goes with which question.
+
+## Propositional Logic
+
+Use tableaux to say which of these are valid. 
+
+1. $p \supset (q \vee r), \neg r \vdash \neg p$
+2. $\vdash ((p \subset q) \supset q) \supset q$
+3. $p \supset q, \neg p \supset q \vdash \neg p$
+
+## Predicate Logic
+
+Use tableaux to say which of the following are valid.
+
+4. $\exists x(Gx \wedge Fx), \exists x(Gx \wedge Hx) \vdash \exists x (Fx \wedge Hx)$
+5. $\forall x(Px \supset \exists y (Sxy)) \vdash \forall x \exists y (Px \supset Sxy)$
+6. $\exists x(Qx \wedge x = b) \supset Qb$
+
+## Modal Logic
+
+Which of the following are valid in K?
+
+7. $\Box p \supset \Box \Box p$
+8. $p \vdash \diamond p$
+
+Which of the following are valid in S4, i.e., K$\rho \tau$?
+
+9. $\Box (p \wedge r) \vdash \Box \Box p$
+10. $\diamond q \vdash \Box \diamond (q \vee r)$
+
+Which of the following are valid in S5, i.e., K$\rho \tau \sigma$?
+
+11. $\vdash \Box(\Box p \rightarrow q) \vee \Box(\Box q \rightarrow r)$
+12. $\diamond p, \diamond (p \rightarrow q) \vdash \diamond q$
+
+## Three-Valued Logic
+
+Consider the argument: $p \rightarrow q \vdash (p \wedge r) \rightarrow (q \wedge r)$.
+
+13. Is this valid in the three-valued Strong Kleene logic?
+14. Is this valid in the three-valued Łukasiewicz logic?
+
+Consider the argument: $p \rightarrow q, r \rightarrow r \vdash (p \wedge r) \rightarrow (q \wedge r)$.
+
+15. Is this valid in the three-valued Strong Kleene logic?
+16. Is this valid in the three-valued Łukasiewicz logic?
+
